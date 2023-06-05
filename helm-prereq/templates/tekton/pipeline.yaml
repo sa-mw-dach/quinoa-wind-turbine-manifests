@@ -7,7 +7,7 @@ spec:
   - default: 1.0.0
     name: IMAGE_TAG
     type: string
-  - default: quay.io/gmodzelewski/quinoa-wind-turbine
+  - default: quay.io/modzelewski/quinoa-wind-turbine
     name: IMAGE_NAME
     type: string
   - default: https://github.com/gmodzelewski/quinoa-wind-turbine.git
