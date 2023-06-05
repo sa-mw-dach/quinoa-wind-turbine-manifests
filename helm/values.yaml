@@ -1,5 +1,5 @@
 image:
-  repository: quay.io/rh-ee-gmodzele/quinoa-wind-turbine
+  repository: quay.io/gmodzelewski/quinoa-wind-turbine
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "1.0.0"
