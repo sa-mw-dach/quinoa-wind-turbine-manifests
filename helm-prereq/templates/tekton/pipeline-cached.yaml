@@ -10,14 +10,14 @@ spec:
     - default: quay.io/rhdevelopers/quinoa-wind-turbine
       name: IMAGE_NAME
       type: string
-    - default: 'https://github.com/redhat-developer-demos/quinoa-wind-turbine.git'
+    - default: 'https://github.com/gmodzelewski/quinoa-wind-turbine.git'
       name: GIT_REPO
       type: string
     - default: main
       name: GIT_BRANCH
       type: string
     - default: >-
-        https://github.com/redhat-developer-demos/quinoa-wind-turbine-manifests.git
+        https://github.com/gmodzelewski/quinoa-wind-turbine-manifests.git
       name: MANIFESTS_GIT_REPO
       type: string
     - default: main

@@ -34,18 +34,18 @@ spec:
       rm -rf git-update-digest-workdir
       git clone $(params.GIT_REPOSITORY) -b $(params.GIT_REF) git-update-digest-workdir
     workingDir: $(workspaces.workspace.path)
-  - image: quay.io/wpernath/kustomize-ubi:latest
-    name: update-digest
-    resources: {}
-    script: |
-      cd git-update-digest-workdir/$(params.KUSTOMIZATION_PATH)
-      kustomize edit set image $(params.NEW_IMAGE)@$(params.NEW_DIGEST)
+  # - image: quay.io/wpernath/kustomize-ubi:latest
+  #   name: update-digest
+  #   resources: {}
+  #   script: |
+  #     cd git-update-digest-workdir/$(params.KUSTOMIZATION_PATH)
+  #     kustomize edit set image $(params.NEW_IMAGE)@$(params.NEW_DIGEST)
 
-      echo "##########################"
-      echo "### kustomization.yaml ###"
-      echo "##########################"
-      cat kustomization.yaml
-    workingDir: $(workspaces.workspace.path)
+  #     echo "##########################"
+  #     echo "### kustomization.yaml ###"
+  #     echo "##########################"
+  #     cat kustomization.yaml
+  #   workingDir: $(workspaces.workspace.path)
   - image: docker.io/alpine/git:v2.26.2
     name: git-commit
     resources: {}
