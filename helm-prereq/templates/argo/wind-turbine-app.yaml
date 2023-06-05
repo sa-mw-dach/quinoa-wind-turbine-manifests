@@ -5,15 +5,15 @@ metadata:
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: demo
+    namespace: {{ .Release.Namespace }}
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: k8s
-    repoURL: https://github.com/redhat-developer-demos/quinoa-wind-turbine-manifests
+    path: helm
+    repoURL: {{ .Values.repoUrl | default "https://github.com/gmodzelewski/quinoa-wind-turbine-manifests" }} 
     targetRevision: main
   syncPolicy:
     automated:
       selfHeal: true
-    syncOptions:
-    - CreateNamespace=true
+    # syncOptions:
+    # - CreateNamespace=true
