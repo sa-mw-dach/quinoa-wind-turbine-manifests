@@ -19,10 +19,10 @@ spec:
           tekton.dev/pipeline: wind-turbine-pipeline
       spec:
         params:
-          - name: GIT_REPO
-            value: $(tt.params.git-repo-url)
-          - name: GIT_BRANCH
-            value: $(tt.params.git-revision)
+          - name: MANIFESTS_GIT_REPO
+            value: $(tt.params.manifests-git-repo-url)
+          - name: MANIFESTS_GIT_BRANCH
+            value: $(tt.params.manifests-git-revision)
         pipelineRef:
           name: wind-turbine-pipeline
         workspaces:
