@@ -19,7 +19,6 @@ spec:
           tekton.dev/pipeline: wind-turbine-pipeline
       spec:
         params:
-          params:
           - name: IMAGE_TAG
             value: 1.0.0
           - name: IMAGE_NAME
@@ -39,4 +38,5 @@ spec:
           persistentVolumeClaim:
             claimName: app-source
         - name: maven-settings
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: build-cache-pvc

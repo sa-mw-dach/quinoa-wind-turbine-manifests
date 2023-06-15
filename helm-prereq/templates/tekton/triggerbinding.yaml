@@ -4,39 +4,15 @@ metadata:
   name: wind-turbine
 spec:
   params:
-  - name: manifests-git-repo-url
-    value: $(body.repository.clone_url)
-  - name: manifests-git-repo-name
-    value: $(body.repository.name)
-  - name: manifests-git-revision
-    value: $(body.after)
-  resourcetemplates:
-    - apiVersion: tekton.dev/v1beta1
-      kind: PipelineRun
-      metadata:
-        generateName: {{ include "quinoa-wind-turbine-prereq.name" . }}-github-run-
-      spec:
-        params:
-          - name: IMAGE_TAG
-            value: 1.0.0
-          - name: IMAGE_NAME
-            value: quay.io/sbergste/quinoa-wind-turbine
-          - name: GIT_REPO
-            value: 'https://github.com/gmodzelewski/quinoa-wind-turbine.git'
-          - name: GIT_BRANCH
-            value: main
-          - name: MANIFESTS_GIT_REPO
-            value: 'https://github.com/gmodzelewski/quinoa-wind-turbine-manifests.git'
-          - name: MANIFESTS_GIT_BRANCH
-            value: main
-        pipelineRef:
-          name: wind-turbine-pipeline
-        serviceAccountName: pipeline
-        timeout: 1h0m0s
-        workspaces:
-          - name: source
-            persistentVolumeClaim:
-              claimName: app-source
-          - name: maven-settings
-            persistentVolumeClaim:
-              claimName: build-cache-pvc
+    - name: git-repo-url
+      value: $(body.repository.url)
+    - name: git-repo-name
+      value: $(body.repository.name)
+    - name: git-revision
+      value: $(body.head_commit.id)
+    - name: git-commit-message
+      value: $(body.head_commit.message)
+    - name: content-type
+      value: $(header.Content-Type)
+    - name: pusher-name
+      value: $(body.pusher.name)
