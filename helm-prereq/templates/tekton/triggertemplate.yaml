@@ -21,7 +21,7 @@ spec:
         params:
           params:
           - name: IMAGE_TAG
-            value: 2.0.1
+            value: 1.0.0
           - name: IMAGE_NAME
             value: quay.io/modzelewski/quinoa-wind-turbine
           - name: GIT_REPO
