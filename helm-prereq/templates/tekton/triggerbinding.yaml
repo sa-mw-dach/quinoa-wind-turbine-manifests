@@ -10,3 +10,33 @@ spec:
     value: $(body.repository.name)
   - name: manifests-git-revision
     value: $(body.after)
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: {{ include "app.fullname" . }}-github-run-
+      spec:
+        params:
+          - name: IMAGE_TAG
+            value: 2.0.1
+          - name: IMAGE_NAME
+            value: quay.io/sbergste/quinoa-wind-turbine
+          - name: GIT_REPO
+            value: 'https://github.com/stefan-bergstein/quinoa-wind-turbine.git'
+          - name: GIT_BRANCH
+            value: main
+          - name: MANIFESTS_GIT_REPO
+            value: 'https://github.com/stefan-bergstein/quinoa-wind-turbine-manifests.git'
+          - name: MANIFESTS_GIT_BRANCH
+            value: main
+        pipelineRef:
+          name: wind-turbine-pipeline
+        serviceAccountName: pipeline
+        timeout: 1h0m0s
+        workspaces:
+          - name: source
+            persistentVolumeClaim:
+              claimName: app-source
+          - name: maven-settings
+            persistentVolumeClaim:
+              claimName: build-cache-pvc
