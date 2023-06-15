@@ -19,8 +19,10 @@ spec:
           tekton.dev/pipeline: wind-turbine-pipeline
       spec:
         params:
-          - name: GIT_REPO
+          - name: MANIFESTS_GIT_REPO
             value: $(tt.params.git-repo-url)
+          - name: GIT_REPO
+            value: https://github.com/gmodzelewski/quinoa-wind-turbine.git
           - name: GIT_BRANCH
             value: $(tt.params.git-revision)
         pipelineRef:
