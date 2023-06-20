@@ -9,7 +9,6 @@ metadata:
     app.kubernetes.io/instance: quinoa-wind-turbine
     app.kubernetes.io/name: quinoa-wind-turbine
     app.kubernetes.io/part-of: wind-turbine
-    app.openshift.io/runtime-version: 1.0.0
   name: quinoa-wind-turbine
 spec:
   port:

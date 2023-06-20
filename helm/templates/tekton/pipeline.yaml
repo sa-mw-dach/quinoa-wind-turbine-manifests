@@ -4,19 +4,19 @@ metadata:
   name: wind-turbine-pipeline
 spec:
   params:
-  - default: 1.0.0
+  - default: {{ coalesce .Values.imageTag .Chart.AppVersion }}
     name: IMAGE_TAG
-    type: string
-  - default: quay.io/modzelewski/quinoa-wind-turbine
-    name: IMAGE_NAME
-    type: string
-  - default: https://github.com/gmodzelewski/quinoa-wind-turbine.git
-    name: GIT_REPO
     type: string
   - default: main
     name: GIT_BRANCH
     type: string
-  - default: https://github.com/gmodzelewski/quinoa-wind-turbine-manifests.git
+  - default: {{ coalesce .Values.image "quay.io/modzelewski/quinoa-wind-turbine" }}
+    name: IMAGE_NAME
+    type: string
+  - default: {{ coalesce .Values.applicationGitUrl "https://github.com/gmodzelewski/quinoa-wind-turbine.git" }}
+    name: GIT_REPO
+    type: string
+  - default: {{ coalesce .Values.manifestsGitUrl "https://github.com/gmodzelewski/quinoa-wind-turbine-manifests.git" }}
     name: MANIFESTS_GIT_REPO
     type: string
   - default: main
@@ -98,24 +98,24 @@ spec:
     workspaces:
     - name: source
       workspace: source
-  # - name: git-update-deployment
-  #   params:
-  #   - name: GIT_REPOSITORY
-  #     value: $(params.MANIFESTS_GIT_REPO)
-  #   - name: GIT_REF
-  #     value: $(params.MANIFESTS_GIT_BRANCH)
-  #   - name: NEW_IMAGE
-  #     value: quay.io/rhdevelopers/quinoa-wind-turbine
-  #   - name: NEW_DIGEST
-  #     value: $(tasks.buildah.results.IMAGE_DIGEST)
-  #   runAfter:
-  #   - buildah
-  #   taskRef:
-  #     kind: Task
-  #     name: git-update-deployment
-  #   workspaces:
-  #   - name: workspace
-  #     workspace: source
+  - name: git-update-deployment
+    params:
+    - name: GIT_REPOSITORY
+      value: $(params.MANIFESTS_GIT_REPO)
+    - name: GIT_REF
+      value: $(params.MANIFESTS_GIT_BRANCH)
+    - name: NEW_IMAGE
+      value: quay.io/rhdevelopers/quinoa-wind-turbine
+    - name: NEW_DIGEST
+      value: $(tasks.buildah.results.IMAGE_DIGEST)
+    runAfter:
+    - buildah
+    taskRef:
+      kind: Task
+      name: git-update-deployment
+    workspaces:
+    - name: workspace
+      workspace: source
   workspaces:
   - name: source
   - name: maven-settings

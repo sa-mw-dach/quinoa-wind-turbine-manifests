@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1 
+kind: ApplicationSet
+metadata:
+  name: wind-turbine-apps
+  namespace: openshift-gitops 
+spec:
+  generators: 
+  - list:
+      elements:
+      - cluster: dev
+        url: https://kubernetes.default.svc
+        namespace: gitops-demo-dev
+        targetRevision: main
+      - cluster: stage
+        url: https://kubernetes.default.svc
+        namespace: gitops-demo-stage
+        targetRevision: Release-0.2.0
+      # - cluster: prod
+      #   url: https://kubernetes.default.svc
+      #   namespace: gitops-demo-prod
+  template:
+    metadata:
+      name: 'wind-turbine-{{cluster}}-app'
+    spec:
+      project: default 
+      source:
+        repoURL: "https://github.com/gmodzelewski/quinoa-wind-turbine-manifests"
+        targetRevision: '{{targetRevision}}'
+        path: helm
+        helm:
+          # valueFiles: 
+          # - values.{{cluster}}.yaml
+          parameters:
+          - name: repoUrl
+            value: 'https://github.com/gmodzelewski/quinoa-wind-turbine-manifests'
+          - name: applicationGitUrl
+            value: 'https://github.com/gmodzelewski/quinoa-wind-turbine.git'
+          - name: image
+            value: 'quay.io/modzelewski/quinoa-wind-turbine'
+          - name: imageTag
+            value: '{{targetRevision}}'
+      destination:
+        server: '{{url}}' 
+        namespace: '{{namespace}}'
+      syncPolicy: 
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+        - CreateNamespace=true
+

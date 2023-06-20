@@ -4,13 +4,14 @@ metadata:
   name: wind-turbine
 spec:
   params:
-    - name: git-revision
-      description: The git revision. In trunkbased development, the release version.
-      default: main
+    - name: content-type
     - name: git-commit-message
     - name: git-repo-url
     - name: git-repo-name
-    - name: content-type
+    - name: git-revision
+      description: The git revision. In trunkbased development, the release version.
+      default: main
+    - name: git-tag
     - name: pusher-name
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
@@ -22,16 +23,10 @@ spec:
       spec:
         params:
           - name: IMAGE_TAG
-            value: $(tt.params.git-revision)
-          - name: IMAGE_NAME
-            value: {{ coalesce .Values.image "quay.io/modzelewski/quinoa-wind-turbine" }}
+            value: $(tt.params.git-tag)
           - name: GIT_REPO
-            value: {{ coalesce .Values.applicationGitUrl "https://github.com/gmodzelewski/quinoa-wind-turbine.git" }}
-          - name: MANIFESTS_GIT_REPO
             value: $(tt.params.git-repo-url)
           - name: GIT_BRANCH
-            value: $(tt.params.git-revision)
-          - name: MANIFESTS_GIT_BRANCH
             value: $(tt.params.git-revision)
         pipelineRef:
           name: wind-turbine-pipeline
