@@ -5,6 +5,8 @@ metadata:
 spec:
   params:
     - name: git-revision
+      description: The git revision. In trunkbased development, the release version.
+      default: main
     - name: git-commit-message
     - name: git-repo-url
     - name: git-repo-name
@@ -20,17 +22,17 @@ spec:
       spec:
         params:
           - name: IMAGE_TAG
-            value: 1.0.0
+            value: $(tt.params.git-revision)
           - name: IMAGE_NAME
-            value: quay.io/modzelewski/quinoa-wind-turbine
+            value: {{ coalesce .Values.image "quay.io/modzelewski/quinoa-wind-turbine" }}
           - name: GIT_REPO
-            value: 'https://github.com/gmodzelewski/quinoa-wind-turbine.git'
-          - name: GIT_BRANCH
-            value: main
+            value: {{ coalesce .Values.applicationGitUrl "https://github.com/gmodzelewski/quinoa-wind-turbine.git" }}
           - name: MANIFESTS_GIT_REPO
-            value: 'https://github.com/gmodzelewski/quinoa-wind-turbine-manifests.git'
+            value: $(tt.params.git-repo-url)
+          - name: GIT_BRANCH
+            value: $(tt.params.git-revision)
           - name: MANIFESTS_GIT_BRANCH
-            value: main
+            value: $(tt.params.git-revision)
         pipelineRef:
           name: wind-turbine-pipeline
         workspaces:

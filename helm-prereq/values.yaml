@@ -1,1 +1,3 @@
 repoUrl: 'https://github.com/gmodzelewski/quinoa-wind-turbine-manifests'
+applicationGitUrl: 'https://github.com/gmodzelewski/quinoa-wind-turbine.git'
+image: 'quay.io/modzelewski/quinoa-wind-turbine'
