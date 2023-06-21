@@ -14,7 +14,7 @@ spec:
       - cluster: stage
         url: https://kubernetes.default.svc
         namespace: gitops-demo-stage
-        targetRevision: Release-0.2.0
+        targetRevision: main
       # - cluster: prod
       #   url: https://kubernetes.default.svc
       #   namespace: gitops-demo-prod
