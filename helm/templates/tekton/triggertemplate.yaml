@@ -23,7 +23,7 @@ spec:
         params:
           - name: GIT_REPO
             value: $(tt.params.git-repo-url)
-          - name: GIT_BRANCH
+          - name: GIT_REVISION
             value: $(tt.params.git-revision)
         pipelineRef:
           name: wind-turbine-pipeline
