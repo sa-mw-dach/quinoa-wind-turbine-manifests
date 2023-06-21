@@ -1,5 +1,4 @@
-image:
-  repository: quay.io/modzelewski/quinoa-wind-turbine
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.0.0"
+manifestsGitUrl: 'https://github.com/gmodzelewski/quinoa-wind-turbine-manifests'
+applicationGitUrl: 'https://github.com/gmodzelewski/quinoa-wind-turbine.git'
+image: 'quay.io/modzelewski/quinoa-wind-turbine'
+# imageTag: # default: Chart.AppVersion

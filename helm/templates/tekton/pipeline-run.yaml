@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: {{ include "quinoa-wind-turbine-prereq.fullname" . }}-run-{{ .Release.Revision }}
+  name: {{ include "app.fullname" . }}-run-{{ .Release.Revision }}
   labels:
     tekton.dev/pipeline: wind-turbine-pipeline
 spec:
@@ -13,11 +13,11 @@ spec:
     - name: GIT_REPO
       value: 'https://github.com/gmodzelewski/quinoa-wind-turbine.git'
     - name: GIT_BRANCH
-      value: main
+      value: 'main'
     - name: MANIFESTS_GIT_REPO
       value: 'https://github.com/gmodzelewski/quinoa-wind-turbine-manifests.git'
     - name: MANIFESTS_GIT_BRANCH
-      value: main
+      value: 'main'
   pipelineRef:
     name: wind-turbine-pipeline
   workspaces:
