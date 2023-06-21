@@ -22,3 +22,8 @@ version: 0.2.0
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: "1.20.0"
+
+dependencies:
+- name: infinispan
+  version: ~0.3.1
+  repository: https://charts.openshift.io/infinispan
