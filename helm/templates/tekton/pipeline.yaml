@@ -89,24 +89,24 @@ spec:
     workspaces:
     - name: source
       workspace: source
-  - name: git-update-deployment
-    params:
-    - name: GIT_REPOSITORY
-      value: $(params.GIT_REPO)
-    - name: GIT_REF
-      value: $(params.GIT_BRANCH)
-    - name: NEW_IMAGE
-      value: $(params.GIT_REPO)
-    - name: NEW_DIGEST
-      value: $(tasks.buildah.results.IMAGE_DIGEST)
-    runAfter:
-    - buildah
-    taskRef:
-      kind: Task
-      name: git-update-deployment
-    workspaces:
-    - name: workspace
-      workspace: source
+  # - name: git-update-deployment
+  #   params:
+  #   - name: GIT_REPOSITORY
+  #     value: $(params.GIT_REPO)
+  #   - name: GIT_REF
+  #     value: $(params.GIT_BRANCH)
+  #   - name: NEW_IMAGE
+  #     value: $(params.GIT_REPO)
+  #   - name: NEW_DIGEST
+  #     value: $(tasks.buildah.results.IMAGE_DIGEST)
+  #   runAfter:
+  #   - buildah
+  #   taskRef:
+  #     kind: Task
+  #     name: git-update-deployment
+  #   workspaces:
+  #   - name: workspace
+  #     workspace: source
   workspaces:
   - name: source
   - name: maven-settings
