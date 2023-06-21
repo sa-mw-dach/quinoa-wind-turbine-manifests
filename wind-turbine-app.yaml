@@ -33,6 +33,7 @@ spec:
         helm:
           # valueFiles: 
           # - values.{{cluster}}.yaml
+          
           parameters:
           - name: repoUrl
             value: 'https://github.com/gmodzelewski/quinoa-wind-turbine-manifests'
@@ -42,6 +43,8 @@ spec:
             value: 'quay.io/modzelewski/quinoa-wind-turbine'
           - name: imageTag
             value: '{{imageTag}}'
+          - name: dependencyUpdate
+            value: true
       destination:
         server: '{{url}}' 
         namespace: '{{namespace}}'

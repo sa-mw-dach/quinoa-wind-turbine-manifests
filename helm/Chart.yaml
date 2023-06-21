@@ -24,6 +24,10 @@ version: 1.1.0
 appVersion: "1.0.0"
 
 dependencies:
-- name: infinispan-infinispan
+# Unfortunately not working via argocd. To use in helm only use this list entry
+# - name: infinispan-infinispan
+#   version: 0.3.1
+#   repository: https://charts.openshift.io
+# Workaround for argocd
+- name: infinispan
   version: 0.3.1
-  repository: https://charts.openshift.io
