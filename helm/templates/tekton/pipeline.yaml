@@ -4,9 +4,6 @@ metadata:
   name: wind-turbine-pipeline
 spec:
   params:
-  - default: {{ coalesce .Values.imageTag .Chart.AppVersion }}
-    name: IMAGE_TAG
-    type: string
   - default: main
     name: GIT_BRANCH
     type: string
@@ -15,12 +12,6 @@ spec:
     type: string
   - default: {{ coalesce .Values.applicationGitUrl "https://github.com/gmodzelewski/quinoa-wind-turbine.git" }}
     name: GIT_REPO
-    type: string
-  - default: {{ coalesce .Values.manifestsGitUrl "https://github.com/gmodzelewski/quinoa-wind-turbine-manifests.git" }}
-    name: MANIFESTS_GIT_REPO
-    type: string
-  - default: main
-    name: MANIFESTS_GIT_BRANCH
     type: string
   tasks:
   - name: git-clone
@@ -75,7 +66,7 @@ spec:
   - name: buildah
     params:
     - name: IMAGE
-      value: $(params.IMAGE_NAME):$(params.IMAGE_TAG)
+      value: $(params.IMAGE_NAME):$(params.GIT_BRANCH)
     - name: BUILDER_IMAGE
       value: registry.redhat.io/rhel8/buildah@sha256:0a86ecbdfbe86e9d225b7fe4b090a0dd6d323f8afdfdf2bd933ff223ddb53320
     - name: STORAGE_DRIVER
@@ -101,11 +92,11 @@ spec:
   - name: git-update-deployment
     params:
     - name: GIT_REPOSITORY
-      value: $(params.MANIFESTS_GIT_REPO)
+      value: $(params.GIT_REPO)
     - name: GIT_REF
-      value: $(params.MANIFESTS_GIT_BRANCH)
+      value: $(params.GIT_BRANCH)
     - name: NEW_IMAGE
-      value: quay.io/rhdevelopers/quinoa-wind-turbine
+      value: $(params.GIT_REPO)
     - name: NEW_DIGEST
       value: $(tasks.buildah.results.IMAGE_DIGEST)
     runAfter:

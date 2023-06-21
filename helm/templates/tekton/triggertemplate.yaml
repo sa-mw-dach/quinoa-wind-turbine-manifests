@@ -11,7 +11,6 @@ spec:
     - name: git-revision
       description: The git revision. In trunkbased development, the release version.
       default: main
-    - name: git-tag
     - name: pusher-name
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
@@ -22,8 +21,6 @@ spec:
           tekton.dev/pipeline: wind-turbine-pipeline
       spec:
         params:
-          - name: IMAGE_TAG
-            value: $(tt.params.git-tag)
           - name: GIT_REPO
             value: $(tt.params.git-repo-url)
           - name: GIT_BRANCH

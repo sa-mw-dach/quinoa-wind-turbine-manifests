@@ -14,7 +14,5 @@ spec:
       value: $(body.repository.url)
     - name: git-revision
       value: $(body.head_commit.id)
-    - name: git-tag
-      value: $(body.ref)
     - name: pusher-name
       value: $(body.pusher.name)

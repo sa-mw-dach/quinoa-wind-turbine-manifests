@@ -11,13 +11,16 @@ spec:
         url: https://kubernetes.default.svc
         namespace: gitops-demo-dev
         targetRevision: main
+        imageTag: "1.0.0"
       - cluster: stage
         url: https://kubernetes.default.svc
         namespace: gitops-demo-stage
         targetRevision: main
+        imageTag: "Release-0.2.0"
       # - cluster: prod
       #   url: https://kubernetes.default.svc
       #   namespace: gitops-demo-prod
+      #   imageTag: "Release-0.2.0"
   template:
     metadata:
       name: 'wind-turbine-{{cluster}}-app'
@@ -38,7 +41,7 @@ spec:
           - name: image
             value: 'quay.io/modzelewski/quinoa-wind-turbine'
           - name: imageTag
-            value: '{{targetRevision}}'
+            value: '{{imageTag}}'
       destination:
         server: '{{url}}' 
         namespace: '{{namespace}}'
