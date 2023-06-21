@@ -40,7 +40,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: password
-              name: {{ .Release.Name }}-generated-secret
+              name: infinispan-generated-secret
         - name: QUARKUS_SECURITY_USERS_EMBEDDED_PLAIN_TEXT
           valueFrom:
             secretKeyRef:
