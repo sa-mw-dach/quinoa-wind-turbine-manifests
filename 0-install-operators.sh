@@ -3,7 +3,6 @@
 PIPELINES_INSTALLED=$(oc get csv -n openshift-operators | grep openshift-pipelines)
 GITOPS_INSTALLED=$(oc get csv -n openshift-operators | grep openshift-gitops)
 STREAMS_INSTALLED=$(oc get csv -n openshift-operators | grep amqstreams)
-INFINISPAN_INSTALLED=$(helm list | grep infinispan)
 
 # --- OpenShift Pipelines -----------------------------------------------------
 
@@ -93,18 +92,5 @@ spec:
 EOF
   echo "$YAML_CONTENT" | oc apply -f -
   $(oc wait --for=condition=initialized --timeout=60s pods -l name=amq-streams-cluster-operator -n openshift-operators)
-fi
-
-# --- Infinispan --------------------------------------------------------------
-if [[ $INFINISPAN_INSTALLED == *"deployed"* ]]; then
-  echo "Infinispan \t\tis installed!"
-else
-  echo "Infinispan \t\tis not installed."
-  echo "Installing Infinispan..."
-  $(helm repo add openshift-helm-charts https://charts.openshift.io/)
-
-  $(helm install infinispan openshift-helm-charts/infinispan-infinispan)
-
-  $(oc wait --for=condition=initialized --timeout=60s pods -l app=infinispan-pod)
 fi
 
