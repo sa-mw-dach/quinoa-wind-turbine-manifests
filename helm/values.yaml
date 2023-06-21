@@ -2,3 +2,7 @@ manifestsGitUrl: 'https://github.com/gmodzelewski/quinoa-wind-turbine-manifests'
 applicationGitUrl: 'https://github.com/gmodzelewski/quinoa-wind-turbine.git'
 image: 'quay.io/modzelewski/quinoa-wind-turbine'
 # imageTag: # default: Chart.AppVersion or set in argocd
+
+infinispan:
+  deploy:
+    nameOverride: infinispan # install of dependency in a local way (because argocd only uses helm template) needs this
