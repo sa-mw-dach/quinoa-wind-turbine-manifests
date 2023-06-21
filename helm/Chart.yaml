@@ -24,6 +24,6 @@ version: 0.2.0
 appVersion: "1.20.0"
 
 dependencies:
-- name: infinispan
+- name: infinispan-infinispan
   version: 0.3.1
-  repository: https://charts.openshift.io/infinispan-infinispan
+  repository: https://charts.openshift.io/
