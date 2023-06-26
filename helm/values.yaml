@@ -9,13 +9,13 @@ infinispan:
 
 sealed-secrets:
   fullnameOverride: sealed-secrets-controller
-#  serviceAccount:
-#    create: false
-#    name: { allocated-service-account }
-#  rbac:
-#    create: false
-#    clusterRole: false
-#  resources:
-#    limits:
-#      cpu: 150m
-#      memory: 256Mi
+  serviceAccount:
+    create: false
+    name: default
+  rbac:
+    create: false
+    clusterRole: false
+  resources:
+    limits:
+      cpu: 150m
+      memory: 256Mi
