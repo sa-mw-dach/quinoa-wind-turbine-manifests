@@ -28,11 +28,6 @@ dependencies:
 #- name: infinispan-infinispan
 #  version: ~0.3.1
 #  repository: https://charts.openshift.io
-#- name: sealed-secrets
-#  version: ~2.10.0
-#  repository: https://bitnami-labs.github.io/sealed-secrets
 # Workaround for argocd
 - name: infinispan
   version: 0.3.1
-- name: sealed-secrets
-  version: 2.10.0
