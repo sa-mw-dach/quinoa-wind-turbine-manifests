@@ -3,6 +3,7 @@
 PIPELINES_INSTALLED=$(oc get csv -n openshift-operators | grep openshift-pipelines)
 GITOPS_INSTALLED=$(oc get csv -n openshift-operators | grep openshift-gitops)
 STREAMS_INSTALLED=$(oc get csv -n openshift-operators | grep amqstreams)
+SEALEDSECRETS_INSTALLED=$(oc get pods -n kube-system -l name=sealed-secrets-controller | grep sealed-secrets)
 
 # --- OpenShift Pipelines -----------------------------------------------------
 
@@ -94,3 +95,14 @@ EOF
   $(oc wait --for=condition=initialized --timeout=60s pods -l name=amq-streams-cluster-operator -n openshift-operators)
 fi
 
+# --- Bitnami Sealed Secrets -------------------------------------------------------
+
+if [[ $SEALEDSECRETS_INSTALLED == *"Running"* ]]; then
+  echo "Bitnami Sealed Secrets \tis installed!"
+else
+  echo "Bitnami Sealed Secrets \tis not installed."
+  echo "Installing Sealed Secrets ..."
+
+  $(oc create -f 'https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.22.0/controller.yaml')
+  $(oc wait --for=condition=initialized --timeout=60s pods -l name=sealed-secrets-controller -n kube-system)
+fi
