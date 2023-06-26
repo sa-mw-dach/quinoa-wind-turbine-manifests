@@ -2,5 +2,8 @@ dependencies:
 - name: infinispan-infinispan
   repository: https://charts.openshift.io
   version: 0.3.1
-digest: sha256:147c50f7bd51eb3e3a930327a420a4717c75b3d0ab074ce511f860e569a45414
-generated: "2023-06-21T12:46:23.07381+02:00"
+- name: sealed-secrets
+  repository: https://bitnami-labs.github.io/sealed-secrets
+  version: 2.10.0
+digest: sha256:bcac33ca3a2a76e1d29c5eff3601609a32d2983c3bcee5654ca687798a74b0e9
+generated: "2023-06-26T16:13:01.502678+02:00"

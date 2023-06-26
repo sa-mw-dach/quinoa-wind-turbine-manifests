@@ -25,9 +25,14 @@ appVersion: "1.0.0"
 
 dependencies:
 # Unfortunately not working via argocd. To use in helm only use this list entry
-# - name: infinispan-infinispan
-#   version: 0.3.1
-#   repository: https://charts.openshift.io
+#- name: infinispan-infinispan
+#  version: ~0.3.1
+#  repository: https://charts.openshift.io
+#- name: sealed-secrets
+#  version: ~2.10.0
+#  repository: https://bitnami-labs.github.io/sealed-secrets
 # Workaround for argocd
 - name: infinispan
   version: 0.3.1
+- name: sealed-secrets
+  version: 2.10.0

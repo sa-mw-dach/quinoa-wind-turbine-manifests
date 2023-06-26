@@ -6,3 +6,16 @@ image: 'quay.io/modzelewski/quinoa-wind-turbine'
 infinispan:
   deploy:
     nameOverride: infinispan # install of dependency in a local way (because argocd only uses helm template) needs this
+
+sealed-secrets:
+  fullnameOverride: sealed-secrets-controller
+#  serviceAccount:
+#    create: false
+#    name: { allocated-service-account }
+#  rbac:
+#    create: false
+#    clusterRole: false
+#  resources:
+#    limits:
+#      cpu: 150m
+#      memory: 256Mi
