@@ -2,6 +2,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: build-cache-pvc
+  annotations:
+    argocd.argoproj.io/hook: PreSync
 spec:
   accessModes:
   - ReadWriteOnce

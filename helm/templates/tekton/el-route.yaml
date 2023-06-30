@@ -5,6 +5,8 @@ metadata:
     app.kubernetes.io/managed-by: EventListener
     app.kubernetes.io/part-of: Triggers
     eventlistener: wind-turbine
+  annotations:
+    argocd.argoproj.io/hook: PreSync
   name: el-wind-turbine
 spec:
   port:

@@ -2,6 +2,8 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: wind-turbine
+  annotations:
+    argocd.argoproj.io/hook: PreSync
 spec:
   serviceAccountName: pipeline
   triggers:

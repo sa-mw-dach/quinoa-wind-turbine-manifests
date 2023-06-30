@@ -4,6 +4,8 @@ metadata:
   name: {{ include "app.fullname" . }}-run-{{ .Release.Revision }}
   labels:
     tekton.dev/pipeline: wind-turbine-pipeline
+  annotations:
+    argocd.argoproj.io/hook: PreSync
 spec:
   params:
     - name: IMAGE_TAG

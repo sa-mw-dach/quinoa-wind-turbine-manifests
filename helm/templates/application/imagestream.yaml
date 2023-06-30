@@ -2,7 +2,8 @@ apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
   annotations:
-    openshift.io/image.dockerRepositoryCheck: "2023-06-30T08:01:18Z"
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: "-1"
   labels:
     app: quinoa-wind-turbine
     app.kubernetes.io/component: quinoa-wind-turbine
