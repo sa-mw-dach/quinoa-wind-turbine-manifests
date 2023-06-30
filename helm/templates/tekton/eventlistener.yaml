@@ -9,3 +9,7 @@ spec:
     - ref: wind-turbine
     template:
       ref: wind-turbine
+    interceptors:
+    - cel:
+        filter: >-
+          (header.match('X-GitHub-Event', 'push') && body.ref.startsWith('refs/heads/{{ coalesce .Values.followChangesForBranch "main" }}'))

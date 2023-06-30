@@ -1,5 +1,5 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
   annotations:
     alpha.image.policy.openshift.io/resolve-names: '*'
@@ -13,17 +13,30 @@ metadata:
     app.openshift.io/runtime: quarkus
   name: quinoa-wind-turbine
 spec:
-  progressDeadlineSeconds: 600
   replicas: 5
   revisionHistoryLimit: 10
   selector:
-    matchLabels:
-      app: quinoa-wind-turbine
+    app: quinoa-wind-turbine
   strategy:
-    rollingUpdate:
+    activeDeadlineSeconds: 21600
+    rollingParams:
+      intervalSeconds: 1
       maxSurge: 25%
       maxUnavailable: 25%
-    type: RollingUpdate
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - quinoa-wind-turbine
+        from:
+          kind: ImageStreamTag
+          name: quinoa-wind-turbine:{{ .Values.imageTag | default .Chart.AppVersion }}
+          namespace: {{ .Release.Namespace }}
   template:
     metadata:
       labels:
