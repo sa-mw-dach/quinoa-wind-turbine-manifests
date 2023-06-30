@@ -51,8 +51,8 @@ spec:
           prune: true
         syncOptions:
         - CreateNamespace=true
-    ignoreDifferences:
-    - group: image.openshift.io
-      kind: ImageStream
-      jsonPointers:
-      - /spec/tags
+      ignoreDifferences:
+      - group: image.openshift.io
+        kind: ImageStream
+        jsonPointers:
+        - /spec/tags
