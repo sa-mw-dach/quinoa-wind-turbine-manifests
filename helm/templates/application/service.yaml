@@ -21,7 +21,6 @@ spec:
     targetPort: 8443
   selector:
     app: quinoa-wind-turbine
-    deployment: quinoa-wind-turbine
   sessionAffinity: None
   type: ClusterIP
 
