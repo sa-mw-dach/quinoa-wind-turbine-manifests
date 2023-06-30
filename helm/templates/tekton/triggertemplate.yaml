@@ -3,7 +3,7 @@ kind: TriggerTemplate
 metadata:
   name: wind-turbine
   annotations:
-    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   params:
     - name: content-type
