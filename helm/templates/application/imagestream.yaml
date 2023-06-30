@@ -6,7 +6,6 @@ metadata:
   labels:
     app: quinoa-wind-turbine
     app.kubernetes.io/component: quinoa-wind-turbine
-    app.kubernetes.io/instance: quinoa-wind-turbine
     app.kubernetes.io/name: quinoa-wind-turbine
     app.kubernetes.io/part-of: wind-turbine
   name: quinoa-wind-turbine
