@@ -28,6 +28,8 @@ spec:
             value: $(tt.params.git-repo-url)
           - name: GIT_REVISION
             value: $(tt.params.git-revision)
+          - name: GIT_COMMIT_MESSAGE
+            value: $(tt.params.git-commit-message)
         pipelineRef:
           name: wind-turbine-pipeline
         workspaces:

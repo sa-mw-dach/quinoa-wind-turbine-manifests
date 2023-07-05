@@ -12,6 +12,9 @@ spec:
   - default: {{ coalesce .Values.applicationGitUrl "https://github.com/gmodzelewski/quinoa-wind-turbine.git" }}
     name: GIT_REPO
     type: string
+  - default: "empty"
+    name: GIT_COMMIT_MESSAGE
+    type: string
   - default: {{ coalesce .Values.imageTag "latest" }}
     name: IMAGE_TAG
     type: string
@@ -99,7 +102,11 @@ spec:
       params:
         - name: SCRIPT
           value: |
-            echo "Tagging image quinoa-wind-turbine:$(params.IMAGE_TAG) to tag"
+            echo "Showing some more infos for debugging reasons:"
+
+            echo "Build image from git commit with message: $(params.GIT_COMMIT_MESSAGE)"
+
+            echo "Trying to tag image quinoa-wind-turbine:$(params.IMAGE_TAG) to:"
 
             echo "$(tasks.buildah.results.IMAGE_DIGEST)"
 
