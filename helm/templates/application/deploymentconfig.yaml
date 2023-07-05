@@ -17,7 +17,6 @@ spec:
   revisionHistoryLimit: 10
   selector:
     app: quinoa-wind-turbine
-    deployment: quinoa-wind-turbine
   strategy:
     activeDeadlineSeconds: 21600
     rollingParams:
@@ -42,7 +41,6 @@ spec:
     metadata:
       labels:
         app: quinoa-wind-turbine
-        deployment: quinoa-wind-turbine
       annotations:
         sidecar.istio.io/inject: 'true'
     spec:
