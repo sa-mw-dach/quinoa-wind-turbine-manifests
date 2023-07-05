@@ -98,7 +98,9 @@ spec:
     - name: rollout
       params:
         - name: SCRIPT
-          value: oc rollout latest dc/quinoa-wind-turbine
+          value: |
+          oc tag $(params.IMAGE_NAME):$(tasks.buildah.results.IMAGE_DIGEST) $(params.IMAGE_NAME):$(params.IMAGE_TAG)
+          oc rollout $(params.IMAGE_TAG) dc/quinoa-wind-turbine
         - name: VERSION
           value: latest
       taskRef:
