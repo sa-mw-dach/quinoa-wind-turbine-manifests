@@ -1,3 +1,4 @@
+{{- if .Values.followChangesForBranch }}
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
@@ -18,3 +19,4 @@ spec:
       value: $(body.head_commit.id)
     - name: pusher-name
       value: $(body.pusher.name)
+{{- end }}

@@ -11,16 +11,18 @@ spec:
         url: https://kubernetes.default.svc
         namespace: gitops-demo-dev
         targetRevision: HEAD
-        imageTag: "1.0.0"
+        imageTag: "latest"
+        followChangesForBranch: "main"
       - cluster: stage
         url: https://kubernetes.default.svc
         namespace: gitops-demo-stage
         targetRevision: HEAD
         imageTag: "Release-0.2.0"
-      # - cluster: prod
-      #   url: https://kubernetes.default.svc
-      #   namespace: gitops-demo-prod
-      #   imageTag: "Release-0.2.0"
+        followChangesForBranch: "Release-0."
+      - cluster: prod
+        url: https://kubernetes.default.svc
+        namespace: gitops-demo-prod
+        imageTag: "Release-0.2.0"
   template:
     metadata:
       name: 'wind-turbine-{{cluster}}-app'

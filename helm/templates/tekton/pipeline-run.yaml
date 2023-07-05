@@ -1,3 +1,4 @@
+{{- if .Values.followChangesForBranch }}
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
@@ -29,3 +30,4 @@ spec:
   - name: maven-settings
     persistentVolumeClaim:
       claimName: build-cache-pvc
+{{- end }}

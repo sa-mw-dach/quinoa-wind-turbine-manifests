@@ -1,3 +1,4 @@
+{{- if .Values.followChangesForBranch }}
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
@@ -36,3 +37,4 @@ spec:
         - name: maven-settings
           persistentVolumeClaim:
             claimName: build-cache-pvc
+{{- end }}

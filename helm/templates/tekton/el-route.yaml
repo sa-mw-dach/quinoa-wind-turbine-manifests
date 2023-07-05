@@ -1,3 +1,4 @@
+{{- if .Values.followChangesForBranch }}
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
@@ -15,3 +16,4 @@ spec:
     kind: Service
     name: el-wind-turbine
     weight: 100
+{{- end }}

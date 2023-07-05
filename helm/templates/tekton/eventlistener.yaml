@@ -1,3 +1,4 @@
+{{- if .Values.followChangesForBranch }}
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
@@ -22,3 +23,4 @@ spec:
       ref:
         kind: ClusterInterceptor
         name: cel
+{{- end }}
