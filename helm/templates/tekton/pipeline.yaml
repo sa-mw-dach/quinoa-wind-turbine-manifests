@@ -99,7 +99,15 @@ spec:
       params:
         - name: SCRIPT
           value: |
+            echo $(params.IMAGE_NAME)
+            
+            echo $(tasks.buildah.results.IMAGE_DIGEST)
+
+            echo $(params.IMAGE_TAG)
+
             oc tag $(params.IMAGE_NAME)@$(tasks.buildah.results.IMAGE_DIGEST) quinoa-wind-turbine:$(params.IMAGE_TAG)
+            
+            oc rollout $(params.IMAGE_TAG) dc/quinoa-wind-turbine
         - name: VERSION
           value: latest
       taskRef:
