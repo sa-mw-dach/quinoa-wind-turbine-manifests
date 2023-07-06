@@ -13,17 +13,18 @@ spec:
         targetRevision: HEAD
         imageTag: "latest"
         followChangesForBranch: "main"
-      - cluster: stage
-        url: https://kubernetes.default.svc
-        namespace: gitops-demo-stage
-        targetRevision: HEAD
-        imageTag: "Release-0.2.0"
-        followChangesForBranch: "Release-0."
+      # - cluster: stage
+      #   url: https://kubernetes.default.svc
+      #   namespace: gitops-demo-stage
+      #   targetRevision: HEAD
+      #   imageTag: "Release-0.2.0"
+      #   followChangesForBranch: "Release-0."
       - cluster: prod
         url: https://kubernetes.default.svc
         namespace: gitops-demo-prod
         imageTag: "Release-0.2.0"
         targetRevision: HEAD
+        followChangesForBranch: "" # -> empty means don't follow
   template:
     metadata:
       name: 'wind-turbine-{{cluster}}-app'
@@ -45,6 +46,8 @@ spec:
             value: 'quay.io/modzelewski/quinoa-wind-turbine'
           - name: imageTag
             value: '{{imageTag}}'
+          - name: followChangesForBranch
+            value: '{{followChangesForBranch}}'
       destination:
         server: '{{url}}' 
         namespace: '{{namespace}}'
