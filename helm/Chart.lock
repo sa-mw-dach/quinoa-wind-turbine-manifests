@@ -1,9 +1,9 @@
 dependencies:
 - name: infinispan-infinispan
   repository: https://charts.openshift.io
-  version: 0.3.1
-- name: sealed-secrets
-  repository: https://bitnami-labs.github.io/sealed-secrets
-  version: 2.10.0
-digest: sha256:bcac33ca3a2a76e1d29c5eff3601609a32d2983c3bcee5654ca687798a74b0e9
-generated: "2023-06-26T16:13:01.502678+02:00"
+  version: 0.3.2
+- name: reloader
+  repository: https://stakater.github.io/stakater-charts
+  version: 1.0.29
+digest: sha256:ae403d437b26beefc946495b03a60f95d1ccd13d36e3f8ea88951e78e11ba9bd
+generated: "2023-07-07T10:21:28.489516+02:00"

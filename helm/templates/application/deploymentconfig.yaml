@@ -43,6 +43,7 @@ spec:
         app: quinoa-wind-turbine
       annotations:
         sidecar.istio.io/inject: 'true'
+        secret.reloader.stakater.com/reload: "infinispan-generated-secret,quinoa-wind-turbine"
     spec:
       containers:
       - env:
