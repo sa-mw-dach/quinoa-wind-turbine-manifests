@@ -1,0 +1,3 @@
+helm/templates/env/gitops-demo-dev/secret.yaml
+helm/templates/env/gitops-demo-stage/secret.yaml
+helm/templates/env/gitops-demo-prod/secret.yaml
