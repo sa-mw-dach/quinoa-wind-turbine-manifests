@@ -28,11 +28,6 @@ dependencies:
 #   - name: infinispan-infinispan
 #     version: ~0.3.2
 #     repository: https://charts.openshift.io
-#   - name: reloader
-#     version: ~1.0.29
-#     repository: https://stakater.github.io/stakater-charts
 # Workaround for argocd
 - name: infinispan
   version: 0.3.2
-- name: reloader
-  version: 1.0.29
