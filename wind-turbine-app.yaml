@@ -13,16 +13,16 @@ spec:
         targetRevision: HEAD
         imageTag: "latest"
         followChangesForBranch: "main"
-      # - cluster: stage
-      #   url: https://kubernetes.default.svc
-      #   namespace: gitops-demo-stage
-      #   targetRevision: HEAD
-      #   imageTag: "Release-0.2.0"
-      #   followChangesForBranch: "Release-0."
+      - cluster: stage
+        url: https://kubernetes.default.svc
+        namespace: gitops-demo-stage
+        targetRevision: HEAD
+        imageTag: "Release-1.0.0"
+        followChangesForBranch: "Release-"
       - cluster: prod
         url: https://kubernetes.default.svc
         namespace: gitops-demo-prod
-        imageTag: "Release-0.2.0"
+        imageTag: "Release-1.0.0"
         targetRevision: HEAD
         followChangesForBranch: "" # -> empty means don't follow
   template:
