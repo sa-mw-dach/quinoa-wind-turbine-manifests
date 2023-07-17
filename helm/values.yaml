@@ -8,6 +8,11 @@ infinispan:
   deploy:
     nameOverride: infinispan # install of dependency in a local way (because argocd only uses helm template) needs this
 
+reloader:
+  isOpenShift: true
+  deployment:
+    secruityContext: false
+
 sealed-secrets:
   fullnameOverride: sealed-secrets-controller
   serviceAccount:

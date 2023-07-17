@@ -5,6 +5,7 @@ metadata:
     alpha.image.policy.openshift.io/resolve-names: '*'
     app.openshift.io/route-disabled: "false"
     app.openshift.io/vcs-uri: {{ coalesce .Values.applicationGitUrl "https://github.com/gmodzelewski/quinoa-wind-turbine.git" }}
+    secret.reloader.stakater.com/reload: "infinispan-generated-secret,quinoa-wind-turbine"
   labels:
     app: quinoa-wind-turbine
     app.kubernetes.io/component: quinoa-wind-turbine
@@ -44,7 +45,6 @@ spec:
         app: quinoa-wind-turbine
       annotations:
         sidecar.istio.io/inject: 'true'
-        secret.reloader.stakater.com/reload: "infinispan-generated-secret,quinoa-wind-turbine"
     spec:
       containers:
       - env:
