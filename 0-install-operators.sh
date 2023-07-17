@@ -4,6 +4,7 @@ PIPELINES_INSTALLED=$(oc get csv -n openshift-operators | grep openshift-pipelin
 GITOPS_INSTALLED=$(oc get csv -n openshift-operators | grep openshift-gitops)
 STREAMS_INSTALLED=$(oc get csv -n openshift-operators | grep amqstreams)
 SEALEDSECRETS_INSTALLED=$(oc get pods -n kube-system -l name=sealed-secrets-controller | grep sealed-secrets)
+RELOADER_INSTALLED=$(helm status reloader -n reloader | grep "STATUS:")
 
 # --- OpenShift Pipelines -----------------------------------------------------
 
@@ -105,4 +106,17 @@ else
 
   $(oc create -f 'https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.22.0/controller.yaml')
   $(oc wait --for=condition=initialized --timeout=60s pods -l name=sealed-secrets-controller -n kube-system)
+fi
+
+# --- Stakater Reloader (for redeploy at changed secrets) -------------------------------------------------------
+
+if [[ $RELOADER_INSTALLED == *"deployed"* ]]; then
+  echo "Stakater Reloader \tis installed!"
+else
+  echo "Stakater Reloader \tis not installed."
+  echo "Installing Reloader ..."
+  
+  $(helm repo add stakater https://stakater.github.io/stakater-charts)
+  $(helm repo update)
+  $(helm install reloader stakater/reloader --set reloader.isOpenShift=true --set reloader.deployment.securityContext=false --namespace reloader --create-namespace)
 fi
