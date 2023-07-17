@@ -118,5 +118,6 @@ else
   
   $(helm repo add stakater https://stakater.github.io/stakater-charts)
   $(helm repo update)
-  $(helm install reloader stakater/reloader --set reloader.isOpenShift=true --set reloader.deployment.securityContext=false --namespace reloader --create-namespace)
+  
+  $(helm install reloader stakater/reloader --namespace reloader --create-namespace --set reloader.isOpenShift=true --set reloader.deployment.securityContext=false)
 fi
