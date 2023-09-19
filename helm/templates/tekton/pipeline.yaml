@@ -118,7 +118,7 @@ spec:
     - name: workspace
       workspace: source
   finally:
-    - name: rolloutCheck
+    - name: rollout-check
       params:
         - name: SCRIPT
           value: |
