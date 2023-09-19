@@ -1,3 +1,4 @@
+{{- if .Values.followChangesForBranch }}
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -67,3 +68,4 @@ spec:
   workspaces:
   - description: The workspace consisting of maven project.
     name: workspace
+{{- end }}
