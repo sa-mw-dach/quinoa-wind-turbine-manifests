@@ -109,10 +109,6 @@ spec:
       value: $(tasks.buildah.results.IMAGE_DIGEST)
     - name: CONFIG_JSON_PATH
       value: {{ coalesce .Values.stage "dev" }}
-
-
-      admission webhook "validation.webhook.pipeline.tekton.dev" denied the request: validation failed: non-existent variable in "$(params.MANIFESTS_GIT_BRANCH)": spec.tasks[3].params[GIT_REF] non-existent variable in "$(params.MANIFESTS_GIT_REPO)": spec.tasks[3].params[GIT_REPOSITORY]
-
     runAfter:
     - buildah
     taskRef:
