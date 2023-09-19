@@ -115,7 +115,7 @@ spec:
             export CURRENT_IMAGE=$(oc get dc quinoa-wind-turbine -o jsonpath='{.spec.template.spec.containers[0].image}{"\n"}')
             export CURRENT_DIGEST=$(echo $CURRENT_IMAGE | cut -d "@" -f2-)
             
-            count=50
+            count=5000
             for i in $(seq $count); do
               if [ "$RESULT_DIGEST" = "$CURRENT_DIGEST" ]
               then
