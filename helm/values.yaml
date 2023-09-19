@@ -1,4 +1,5 @@
 manifestsGitUrl: 'https://github.com/gmodzelewski/quinoa-wind-turbine-manifests'
+# manifestsGitBranch: main
 applicationGitUrl: 'https://github.com/gmodzelewski/quinoa-wind-turbine.git'
 image: 'quay.io/modzelewski/quinoa-wind-turbine'
 imageTag: latest # Overwrite this value in the applicationSet - wind-turbine-app.yaml
