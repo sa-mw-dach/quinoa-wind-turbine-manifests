@@ -1,7 +1,0 @@
-{
-  "stage": "prod",
-  "url": "https://kubernetes.default.svc",
-  "namespace": "gitops-demo-prod",
-  "imageTag": "Release-1.0.0",
-  "followChangesForBranch": ""
-}
