@@ -123,13 +123,22 @@ spec:
             diff <(echo "$$RESULT_DIGEST") <(echo "$CURRENT_DIGEST")
             # [ "$RESULT_DIGEST" = "$CURRENT_DIGEST" ]; echo "$?" 
 
-            if [ "$RESULT_DIGEST" = "$CURRENT_DIGEST" ]
-            then
-                echo "Current digest is deployed!"
-            else
-                echo "ERROR!"
-            fi
+            count=50
+            for i in $(seq $count); do
+                if [ "$RESULT_DIGEST" = "$CURRENT_DIGEST" ]
+                then
+                    echo "Current digest is deployed!"
+                    break
+                else
+                    echo "Check number $i of $count - not yet deployed"
+                    sleep 1
+                fi
+            done
 
+            if [ "$RESULT_DIGEST" != "$CURRENT_DIGEST" ]
+            then
+              echo "ERROR! Wrong image digest deployed!"
+            fi
         - name: VERSION
           value: latest
       taskRef:
