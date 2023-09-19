@@ -102,21 +102,16 @@ spec:
       params:
         - name: SCRIPT
           value: |
-            echo "Showing some more infos for debugging reasons:"
-            echo "Build image from git commit with message: $(params.GIT_COMMIT_MESSAGE)"
-            echo "Trying to tag image quinoa-wind-turbine:$(params.IMAGE_TAG) to:"
-            echo "$(tasks.buildah.results.IMAGE_DIGEST)"
-
             oc tag $(params.IMAGE_NAME)@$(tasks.buildah.results.IMAGE_DIGEST) quinoa-wind-turbine:$(params.IMAGE_TAG)
             oc rollout latest dc/quinoa-wind-turbine || true
 
-            echo "--- New stuff: Checking if really the new build image digest is deployed ---"
+            echo "--- Checking every second of the next 5 minutes (== 300 sec), if the new build image digest is deployed ---"
 
             export CURRENT_IMAGE=$(oc get dc quinoa-wind-turbine -o jsonpath='{.spec.template.spec.containers[0].image}{"\n"}')
             export CURRENT_DIGEST=$(echo $CURRENT_IMAGE | cut -d "@" -f2-)
             
             SECONDS=0;
-            while sleep 1 && ((SECONDS <= 5000)); do 
+            while sleep 1 && ((SECONDS <= 300)); do 
               export CURRENT_IMAGE=$(oc get dc quinoa-wind-turbine -o jsonpath='{.spec.template.spec.containers[0].image}{"\n"}')
               export CURRENT_DIGEST=$(echo $CURRENT_IMAGE | cut -d "@" -f2-)
               if [ "$(tasks.buildah.results.IMAGE_DIGEST)" = "$CURRENT_DIGEST" ]
@@ -124,7 +119,7 @@ spec:
                 echo "Current digest is deployed!"
                 break
               else
-                printf '\r%s: %2d' "Checking every second until deployed:" "$((5000-SECONDS))"
+                printf '\r%s: %2d' "Checking every second until deployed:" "$((300-SECONDS))"
               fi
             done
             printf '\n'
@@ -132,6 +127,7 @@ spec:
             if [ "$(tasks.buildah.results.IMAGE_DIGEST)" != "$CURRENT_DIGEST" ]
             then
               echo "ERROR! Wrong image digest deployed!"
+              exit 1;
             fi
         - name: VERSION
           value: latest
