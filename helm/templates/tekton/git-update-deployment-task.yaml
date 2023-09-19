@@ -35,7 +35,7 @@ spec:
       rm -rf git-update-digest-workdir
       git clone $(params.GIT_REPOSITORY) -b $(params.GIT_REF) git-update-digest-workdir
     workingDir: $(workspaces.workspace.path)
-  - image: docker.io/alpine/git:v2.26.2
+  - image: registry.access.redhat.com/ubi9/ubi
     name: set-image-tag
     resources: {}
     script: |
