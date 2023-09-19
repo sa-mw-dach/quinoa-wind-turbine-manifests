@@ -65,7 +65,7 @@ spec:
             secretKeyRef:
               key: developer-user-password
               name: quinoa-wind-turbine
-        image: "{{ .Values.image }}:{{ .Values.imageTag | default .Chart.AppVersion }}"
+        image: {{ include "app.image" . }}
         imagePullPolicy: IfNotPresent
         name: quinoa-wind-turbine
         ports:
