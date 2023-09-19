@@ -119,7 +119,8 @@ spec:
                 echo "Current digest is deployed!"
                 break
               else
-                printf '\r%s: %2d' "Checking every second until deployed:" "$((300-SECONDS))"
+                printf '\r%s: %2d' "Checking every second until deployed" "$((300-SECONDS))"
+                printf '\n'
               fi
             done
             printf '\n'
