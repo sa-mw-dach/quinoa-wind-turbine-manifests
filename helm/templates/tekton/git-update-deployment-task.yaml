@@ -9,7 +9,7 @@ metadata:
     operator.tekton.dev/provider-type: community
   name: git-update-deployment
 spec:
-  description: This Task can be used to update image digest in a Git repo using kustomize.
+  description: This Task can be used to update image digest in a Git repo.
     It requires a secret with credentials for accessing the git repo.
   params:
   - name: GIT_REPOSITORY
@@ -20,7 +20,7 @@ spec:
     type: string
   - name: NEW_DIGEST
     type: string
-  - name: KUSTOMIZATION_PATH
+  - name: CONFIG_JSON_PATH
     type: string
   results:
   - description: The commit SHA
@@ -34,31 +34,23 @@ spec:
       rm -rf git-update-digest-workdir
       git clone $(params.GIT_REPOSITORY) -b $(params.GIT_REF) git-update-digest-workdir
     workingDir: $(workspaces.workspace.path)
-  - image: quay.io/wpernath/kustomize-ubi:latest
-    name: update-digest
+  - image: docker.io/alpine/git:v2.26.2
+    name: set-imageTag
     resources: {}
     script: |
-      cd git-update-digest-workdir/$(params.KUSTOMIZATION_PATH)
-      kustomize edit set image $(params.NEW_IMAGE)@$(params.NEW_DIGEST)
-
-      echo "##########################"
-      echo "### kustomization.yaml ###"
-      echo "##########################"
-      cat kustomization.yaml
-
-      jq '.imageTag = "sha256:dinge"' config.json > temp.json && mv temp.json config.json
+      cd git-update-digest-workdir/$(params.CONFIG_JSON_PATH)
+      jq '.imageTag = "$(params.NEW_DIGEST)"' config.json > temp.json && mv temp.json config.json
     workingDir: $(workspaces.workspace.path)
   - image: docker.io/alpine/git:v2.26.2
     name: git-commit
     resources: {}
     script: |
       cd git-update-digest-workdir
-
       git config user.email "tektonbot@redhat.com"
       git config user.name "My Tekton Bot"
 
       git status
-      git add $(params.KUSTOMIZATION_PATH)/kustomization.yaml
+      git add .
       git commit -m "[ci] Image digest updated"
 
       git push

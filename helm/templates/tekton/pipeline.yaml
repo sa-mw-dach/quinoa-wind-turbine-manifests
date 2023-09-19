@@ -97,8 +97,28 @@ spec:
     workspaces:
     - name: source
       workspace: source
+  - name: git-update-deployment
+    params:
+    - name: GIT_REPOSITORY
+      value: $(params.MANIFESTS_GIT_REPO)
+    - name: GIT_REF
+      value: $(params.MANIFESTS_GIT_BRANCH)
+    - name: NEW_IMAGE
+      value: quay.io/rhdevelopers/quinoa-wind-turbine
+    - name: NEW_DIGEST
+      value: $(tasks.buildah.results.IMAGE_DIGEST)
+    - name: CONFIG_JSON_PATH
+      value: {{ coalesce .Values.stage "dev" }}
+    runAfter:
+    - buildah
+    taskRef:
+      kind: Task
+      name: git-update-deployment
+    workspaces:
+    - name: workspace
+      workspace: source
   finally:
-    - name: rollout
+    - name: rolloutCheck
       params:
         - name: SCRIPT
           value: |

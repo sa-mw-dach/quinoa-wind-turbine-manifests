@@ -29,7 +29,7 @@ spec:
   #       followChangesForBranch: "" # -> empty means don't follow
   template:
     metadata:
-      name: 'wind-turbine-{{cluster}}-app'
+      name: 'wind-turbine-{{stage}}-app'
     spec:
       project: default 
       source:
@@ -49,6 +49,8 @@ spec:
             value: '{{imageTag}}'
           - name: followChangesForBranch
             value: '{{followChangesForBranch}}'
+          - name: stage
+            value: '{{stage}}'
       destination:
         server: '{{url}}' 
         namespace: '{{namespace}}'

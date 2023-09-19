@@ -1,5 +1,5 @@
 {
-  "cluster": "dev",
+  "stage": "dev",
   "url": "https://kubernetes.default.svc",
   "namespace": "gitops-demo-dev",
   "imageTag": "latest",
