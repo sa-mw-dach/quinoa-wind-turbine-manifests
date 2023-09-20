@@ -136,7 +136,7 @@ spec:
               export CURRENT_DIGEST=$(echo $CURRENT_IMAGE | cut -d "@" -f2-)
               if [ "$(tasks.buildah.results.IMAGE_DIGEST)" = "$CURRENT_DIGEST" ]
               then
-                printf "Current digest is deployed!"
+                printf "\nCurrent digest is deployed!"
                 break
               else
                 printf '\r%s: %2d' "Checking every second until deployed" "$((300-SECONDS))"
