@@ -51,7 +51,7 @@ spec:
       git config user.name "My Tekton Bot"
 
       git status
-      git commit -am "[ci] Image digest updated"
+      git commit -am "[ci] Image digest for {{ .Values.imageTag }} updated"
 
       git push
 
