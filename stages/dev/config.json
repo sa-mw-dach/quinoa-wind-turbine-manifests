@@ -2,6 +2,7 @@
   "stage": "dev",
   "url": "https://kubernetes.default.svc",
   "namespace": "gitops-demo-dev",
-  "imageTag": "sha256:e274e6f14bdacc2d06482668e6208b7557ea5d715fb027a8784dc253b6a66051",
+  "imageTag": "latest",
+  "imageDigest": "sha256:e274e6f14bdacc2d06482668e6208b7557ea5d715fb027a8784dc253b6a66051",
   "followChangesForBranch": "main"
 }

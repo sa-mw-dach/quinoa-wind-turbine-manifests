@@ -65,9 +65,9 @@ Create the name of the service account to use
 Create the image. If the image tag has a sha256 image digest, set the digest accordingly
 */}}
 {{- define "app.image" -}}
-{{- if contains "sha256:" .Values.imageTag }}
-{{- printf "%s:%s" .Values.image (.Values.imageTag | default .Chart.AppVersion) }}
-{{- else }}
+{{- if .Values.imageDigest }}
 {{- printf "%s%s" .Values.image .Values.imageDigest }}
+{{- else }}
+{{- printf "%s:%s" .Values.image (.Values.imageTag | default .Chart.AppVersion) }}
 {{- end }}
 {{- end }}

@@ -40,7 +40,7 @@ spec:
     resources: {}
     script: |
       cd git-update-digest-workdir/$(params.CONFIG_JSON_PATH)
-      jq '.imageTag = "$(params.NEW_DIGEST)"' config.json > temp.json && mv temp.json config.json
+      jq '.imageDigest = "$(params.NEW_DIGEST)"' config.json > temp.json && mv temp.json config.json
     workingDir: $(workspaces.workspace.path)
   - image: docker.io/alpine/git:v2.26.2
     name: git-commit
