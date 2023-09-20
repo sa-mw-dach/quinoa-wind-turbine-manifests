@@ -51,8 +51,7 @@ spec:
       git config user.name "My Tekton Bot"
 
       git status
-      git add git-update-digest-workdir/$(params.CONFIG_JSON_PATH)/config.json
-      git commit -m "[ci] Image digest updated"
+      git commit -am "[ci] Image digest updated"
 
       git push
 
