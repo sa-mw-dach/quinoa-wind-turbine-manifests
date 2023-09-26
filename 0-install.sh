@@ -202,7 +202,7 @@ if [[ $SECRET_FOR_APP_ON_DEV == *"quinoa-wind-turbine"* ]]; then
   echo "✅ Secret for application on dev"
 else
   echo "Secret for application on dev must be created"
-  helm template helm --set disableSecretsDeployment=false -s templates/env/gitops-demo-dev/secret.yaml | kubeseal - > stages/dev/sealedsecret.yaml
+  helm template helm -n gitops-demo-dev --set disableSecretsDeployment=false -s templates/env/gitops-demo-dev/secret.yaml | kubeseal -n gitops-demo-dev - > stages/dev/sealedsecret.yaml
   oc apply -f stages/dev/sealedsecret.yaml
 fi
 
@@ -211,7 +211,7 @@ if [[ $SECRET_FOR_APP_ON_STAGE == *"quinoa-wind-turbine"* ]]; then
   echo "✅ Secret for application on stage"
 else
   echo "Secret for application on stage must be created"
-  helm template helm --set disableSecretsDeployment=false -s templates/env/gitops-demo-stage/secret.yaml | kubeseal - > stages/stage/sealedsecret.yaml
+  helm template helm -n gitops-demo-stage --set disableSecretsDeployment=false -s templates/env/gitops-demo-stage/secret.yaml | kubeseal -n gitops-demo-stage - > stages/stage/sealedsecret.yaml
   oc apply -f stages/stage/sealedsecret.yaml
 fi
 
@@ -220,7 +220,7 @@ if [[ $SECRET_FOR_APP_ON_DEV == *"quinoa-wind-turbine"* ]]; then
   echo "✅ Secret for application on prod"
 else
   echo "Secret for application on prod must be created"
-  helm template helm --set disableSecretsDeployment=false -s templates/env/gitops-demo-prod/secret.yaml | kubeseal - > stages/prod/sealedsecret.yaml
+  helm template helm -n gitops-demo-prod --set disableSecretsDeployment=false -s templates/env/gitops-demo-prod/secret.yaml | kubeseal -n gitops-demo-prod - > stages/prod/sealedsecret.yaml
   oc apply -f stages/prod/sealedsecret.yaml
 fi
 
