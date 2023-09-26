@@ -1,3 +1,8 @@
 helm/templates/env/gitops-demo-dev/secret.yaml
+stages/dev/sealedsecret.yaml
+
 helm/templates/env/gitops-demo-stage/secret.yaml
+stages/stage/sealedsecret.yaml
+
 helm/templates/env/gitops-demo-prod/secret.yaml
+stages/prod/sealedsecret.yaml
