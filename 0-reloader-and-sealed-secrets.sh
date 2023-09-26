@@ -19,9 +19,9 @@
 # oc secret link pipeline quay-push-secret -n gitops-demo-dev
 # oc secret link pipeline quay-push-secret -n gitops-demo-stage
 
-helm template helm -s templates/env/gitops-demo-dev/secret.yaml | kubeseal - > stages/dev/sealedsecret.yaml
-helm template helm -s templates/env/gitops-demo-stage/secret.yaml | kubeseal - > stages/stage/sealedsecret.yaml
-helm template helm -s templates/env/gitops-demo-prod/secret.yaml | kubeseal - > stages/prod/sealedsecret.yaml
+helm template helm --set disableSecretsDeployment=false -s templates/env/gitops-demo-dev/secret.yaml | kubeseal - > stages/dev/sealedsecret.yaml
+helm template helm --set disableSecretsDeployment=false -s templates/env/gitops-demo-stage/secret.yaml | kubeseal - > stages/stage/sealedsecret.yaml
+helm template helm --set disableSecretsDeployment=false -s templates/env/gitops-demo-prod/secret.yaml | kubeseal - > stages/prod/sealedsecret.yaml
 
 oc apply -f stages/dev/sealedsecret.yaml
 oc apply -f stages/stage/sealedsecret.yaml
