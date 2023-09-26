@@ -4,5 +4,6 @@
   "namespace": "gitops-demo-dev",
   "imageTag": "latest",
   "imageDigest": "sha256:463145c4d7ac9f335a151554aae640cf76a7d634a2e8e7e758e49f7646f8d5e1",
-  "followChangesForBranch": "main"
+  "followChangesForBranch": "main",
+  "disableSecretsDeployment": true
 }

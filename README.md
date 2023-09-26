@@ -40,3 +40,11 @@ oc patch pvc <pvc-name> -p '{"metadata":{"finalizers": []}}' --type=merge
 
 TODO:
 - document sealed secret usage -> must be created manually in each namespace/cluster/etc. before
+- reloader helm install 
+- operatoren install:
+  - AMQ Broker
+  - OpenShift Pipelines
+  - OpenShift GitOps
+- helm install:
+  - Reloader
+  - Sealed Secrets
