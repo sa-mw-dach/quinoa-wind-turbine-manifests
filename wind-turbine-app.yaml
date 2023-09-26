@@ -10,6 +10,8 @@ spec:
       revision: main
       files:
       - path: "stages/**/config.json"
+      values:
+        disableSecretsDeployment: true
   # - list:
   #     elements:
   #     - cluster: dev
