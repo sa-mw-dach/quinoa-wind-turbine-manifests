@@ -4,6 +4,6 @@
   "namespace": "gitops-demo-stage",
   "imageTag": "Release-1.0.4",
   "followChangesForBranch": "Release-1.0",
-  "imageDigest": "sha256:535f7a47f581fb6efbf39d488850d9598a4a6b67dba04083564fe49d4eff096a",
+  "imageDigest": "sha256:77474f5b92e68e2e07dfa2e3906d9a2cef9e17963ac54fa9f52c9c0a929c6031",
   "disableSecretsDeployment": true
 }
