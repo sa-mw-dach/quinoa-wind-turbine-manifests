@@ -5,5 +5,5 @@
   "imageTag": "latest",
   "imageDigest": "sha256:3a92a6d6462ad2134ade095286981add3e23f9fb1aa75a73a6284e4baa58fcee",
   "followChangesForBranch": "main",
-  "disableSecretsDeployment": true
+  "disableSecretsDeployment": "true"
 }
