@@ -67,7 +67,3 @@ spec:
         kind: ImageStream
         jsonPointers:
         - /spec/tags
-      - group: apps.openshift.io
-        kind: DeploymentConfig
-        jsonPointers:
-        - /spec/template/spec/containers/0/image
