@@ -145,28 +145,28 @@ if [[ $DEV_SECRETS == *"github"* ]]; then
   echo "✅ GitHub secret exists on dev"
 else
   echo "GitHub secret will be created in dev namespace"
-  oc apply -f 0-secret-for-github-filled.yaml -n gitops-demo-dev
+  oc apply -f 0-github-secret.yaml -n gitops-demo-dev
 fi
 
 if [[ $STAGE_SECRETS == *"github"* ]]; then
   echo "✅ GitHub secret exists on stage"
 else
   echo "GitHub secret will be created in stage namespace"
-  oc apply -f 0-secret-for-github-filled.yaml -n gitops-demo-stage
+  oc apply -f 0-github-secret.yaml -n gitops-demo-stage
 fi
 
 if [[ $DEV_SECRETS == *"quay"* ]]; then
   echo "✅ Quay secret exists on dev"
 else
   echo "Quay secret will be created in dev namespace"
-  oc apply -f 0-secret-for-quay-filled.yaml -n gitops-demo-dev
+  oc apply -f 0-quay-secret.yaml -n gitops-demo-dev
 fi
 
 if [[ $STAGE_SECRETS == *"quay"* ]]; then
   echo "✅ Quay secret exists on stage"
 else
   echo "Quay secret will be created in stage namespace"
-  oc apply -f 0-secret-for-quay-filled.yaml -n gitops-demo-stage
+  oc apply -f 0-quay-secret.yaml -n gitops-demo-stage
 fi
 
 # --- Service Account of pipelines linking to needed account info
@@ -226,3 +226,5 @@ fi
 
 # rollout!
 oc apply -f wind-turbine-app.yaml
+
+sh 2-show-event-listener-routes.sh

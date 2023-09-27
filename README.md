@@ -1,31 +1,39 @@
 # Wind Turbine GitOps repo
 
-## Prerequisites
+The refactored manifest repository using OpenShift GitOps with ApplicationSets and git file generator for parameters.
 
-1. fork this repo
-2. run `0-install-operators.sh` - install the needed operators on your cluster. The script also detects, if the operator is already installed.
-3. fill your information in the `1-github-and-quay-secrets.yaml`-file. Git Secrets are optional and may be deleted when your forked repo is public.
-4. apply the `1-github-and-quay-secrets.yaml`-file to your cluster and namespace
-5. copy secrets to all namespaces you want to use.
-    ```sh
-    oc get secret quay-secret -o json \
-    | jq 'del(.metadata["namespace","creationTimestamp","resourceVersion","selfLink","uid"])' \
-    | oc apply -n <destination-namespace> -f -
-    ```
-6. link secrets to your pipeline
-    ```sh
-    oc secret link pipeline quay-secret -n <destination-namespace>
-    ```
+The main file here is the `wind-turbine-app.yaml` - file which contains an ApplicationSet using 
+- the `helm` chart folder for templates and 
+- the `stages/*/config.js` files for parameters.
+
+For easy install there is a shell script which does all kinds of installations that are needed.
 
 ## Installation
 
-1. fill your namespace names etc. in the ArgoCD ApplicationSet yaml file
-2. Apply the argocd yaml file
-    ```sh
-    oc apply -f argoapp.yaml
-    ```
-3. Create json webhooks in your GitHub application project forks to push to your Event Listener Routes
-4. Profit
+1. fork this repo
+2. `0-github-secret.yaml`: fill credentials for github from user settings -> Developer settings -> Personal access tokens -> Fine-grained tokens
+3. `0-quay-secret.yaml`: fill credentials for quay from Robot Accounts -> Create Robot Account -> Kubernetes Secret
+4. run `1-install.sh`
+
+## Webhooks
+
+1. Get routes from your stage and dev deployments
+2. Create json webhooks in your GitHub application project forks to push to your Event Listener Routes
+3. Profit
+
+## Used stuff
+
+This application uses multiple tools which are installed via script on a clean environment. The tools are installed via operator or helm charts. Here's the list:
+- operators:
+  - AMQ Streams
+  - OpenShift Pipelines
+  - OpenShift GitOps
+- helm packages:
+  - Reloader
+  - Sealed Secrets
+
+See the install shell script `1-install.sh` for further details`.
+The applications can be installed manually via helm install as well. Change the values file according to your needs and install.
 
 ## Bugfixing:
 
@@ -37,14 +45,3 @@ If some pvc gets stuck you can fix this via
 ```sh
 oc patch pvc <pvc-name> -p '{"metadata":{"finalizers": []}}' --type=merge
 ```
-
-TODO:
-- document sealed secret usage -> must be created manually in each namespace/cluster/etc. before
-- reloader helm install 
-- operatoren install:
-  - AMQ Broker
-  - OpenShift Pipelines
-  - OpenShift GitOps
-- helm install:
-  - Reloader
-  - Sealed Secrets
