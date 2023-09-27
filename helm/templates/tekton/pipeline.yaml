@@ -3,8 +3,6 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: wind-turbine-pipeline
-  annotations:
-    argocd.argoproj.io/sync-wave: "-1"
 spec:
   params:
   - name: GIT_REVISION

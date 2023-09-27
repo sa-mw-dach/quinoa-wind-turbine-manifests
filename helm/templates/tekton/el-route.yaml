@@ -6,8 +6,6 @@ metadata:
     app.kubernetes.io/managed-by: EventListener
     app.kubernetes.io/part-of: Triggers
     eventlistener: wind-turbine
-  annotations:
-    argocd.argoproj.io/sync-wave: "-1"
   name: el-wind-turbine
 spec:
   port:

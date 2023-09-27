@@ -3,8 +3,6 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
   name: wind-turbine
-  annotations:
-    argocd.argoproj.io/sync-wave: "-1"
 spec:
   params:
     - name: content-type
