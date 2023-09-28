@@ -10,8 +10,6 @@ spec:
       revision: main
       files:
       - path: "stages/**/config.json"
-      values:
-        disableSecretsDeployment: true
   # - list:
   #     elements:
   #     - cluster: dev
@@ -56,7 +54,7 @@ spec:
           - name: stage
             value: '{{stage}}'
           - name: disableSecretsDeployment
-            value: '{{disableSecretsDeployment}}'
+            value: 'true'
       destination:
         server: '{{url}}' 
         namespace: '{{namespace}}'
