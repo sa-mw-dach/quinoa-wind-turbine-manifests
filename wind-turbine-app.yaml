@@ -49,10 +49,14 @@ spec:
             value: 'quay.io/modzelewski/quinoa-wind-turbine'
           - name: imageTag
             value: '{{imageTag}}'
+          - name: imageDigest
+            value: '{{imageDigest}}'
           - name: followChangesForBranch
             value: '{{followChangesForBranch}}'
           - name: stage
             value: '{{stage}}'
+          - name: disableSecretsDeployment
+            value: '{{disableSecretsDeployment}}'
       destination:
         server: '{{url}}' 
         namespace: '{{namespace}}'
