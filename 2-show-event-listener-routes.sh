@@ -14,8 +14,8 @@ if [[ $EVENT_LISTENER_RUNNING_DEV == *"condition met"* ]] && [[ $EVENT_LISTENER_
   echo "➡️  Select as a content type application/json"
   echo "➡️  Use these Payload URLs:"
   echo "--------------------------------------------------------------------------------"
-  echo "$EVENT_LISTENER_FOR_DEV"
-  echo "$EVENT_LISTENER_FOR_STAGE"
+  echo "http://$EVENT_LISTENER_FOR_DEV"
+  echo "http://$EVENT_LISTENER_FOR_STAGE"
   echo "--------------------------------------------------------------------------------"
 else
   echo "🚫 Checking if event listeners are running"

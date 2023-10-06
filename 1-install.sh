@@ -141,14 +141,14 @@ fi
 DEV_SECRETS=$(oc get secret -n gitops-demo-dev)
 STAGE_SECRETS=$(oc get secret -n gitops-demo-stage)
 
-if [[ $DEV_SECRETS == *"github"* ]]; then
+if [[ $DEV_SECRETS == *"git-user-pass"* ]]; then
   echo "✅ GitHub secret exists on dev"
 else
   echo "GitHub secret will be created in dev namespace"
   oc apply -f 0-github-secret.yaml -n gitops-demo-dev
 fi
 
-if [[ $STAGE_SECRETS == *"github"* ]]; then
+if [[ $STAGE_SECRETS == *"git-user-pass"* ]]; then
   echo "✅ GitHub secret exists on stage"
 else
   echo "GitHub secret will be created in stage namespace"
