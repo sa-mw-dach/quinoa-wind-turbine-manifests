@@ -50,6 +50,9 @@ EOF
 
   # Apply the inline YAML using 'oc apply'
   echo "$YAML_CONTENT" | oc apply -f -
+  
+  echo "Workaround: Sleep for 3 seconds until roles and service accounts are available"
+  sleep 3
   $(oc adm policy add-cluster-role-to-user cluster-admin -z openshift-gitops-argocd-application-controller -n openshift-gitops)
   oc wait --for=condition=initialized --timeout=60s pods -l app.kubernetes.io/name=openshift-gitops-server -n openshift-gitops
 fi
