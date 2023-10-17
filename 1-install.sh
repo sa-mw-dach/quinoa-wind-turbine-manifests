@@ -172,29 +172,40 @@ else
   oc apply -f 0-quay-secret.yaml -n gitops-demo-stage
 fi
 
+# --- Wait until SA pipelines is there
+while true; do
+  if oc get serviceaccount pipeline -n gitops-demo-dev &> /dev/null; then
+    echo "✅ OpenShift Pipelines Service Account"
+    break
+  else
+    echo "Waiting for OpenShift Pipelines Service Account..."
+    sleep 1
+  fi
+done
+
 # --- Service Account of pipelines linking to needed account info
 SERVICE_ACCOUNT_LINKED_SECRETS_DEV=$(oc get sa pipeline -o jsonpath='{.secrets}' -n gitops-demo-dev)
 if [[ $SERVICE_ACCOUNT_LINKED_SECRETS_DEV == *"git-user-pass"* ]]; then
-  echo "✅ ServiceAccount link to github on dev"
+  echo "✅ OpenShift Pipelines Service Account link to github on dev"
 else
   oc secret link pipeline git-user-pass -n gitops-demo-dev
 fi
 
 if [[ $SERVICE_ACCOUNT_LINKED_SECRETS_DEV == *"quay-push-secret"* ]]; then
-  echo "✅ ServiceAccount link to quay on dev"
+  echo "✅ OpenShift Pipelines Service Account link to quay on dev"
 else
   oc secret link pipeline quay-push-secret -n gitops-demo-dev
 fi
 
 SERVICE_ACCOUNT_LINKED_SECRETS_STAGE=$(oc get sa pipeline -o jsonpath='{.secrets}' -n gitops-demo-stage)
 if [[ $SERVICE_ACCOUNT_LINKED_SECRETS_STAGE == *"git-user-pass"* ]]; then
-  echo "✅ ServiceAccount link to github on stage"
+  echo "✅ OpenShift Pipelines Service Account link to github on stage"
 else
   oc secret link pipeline git-user-pass -n gitops-demo-stage
 fi
 
 if [[ $SERVICE_ACCOUNT_LINKED_SECRETS_STAGE == *"quay-push-secret"* ]]; then
-  echo "✅ ServiceAccount link to quay on stage"
+  echo "✅ OpenShift Pipelines Service Account link to quay on stage"
 else
   oc secret link pipeline quay-push-secret -n gitops-demo-stage
 fi
@@ -226,6 +237,15 @@ else
   helm template helm -n gitops-demo-prod --set disableSecretsDeployment=false -s templates/env/gitops-demo-prod/secret.yaml | kubeseal -n gitops-demo-prod - > stages/prod/sealedsecret.yaml
   oc apply -f stages/prod/sealedsecret.yaml
 fi
+
+# --- Wait until CRD ApplicationSet is available and an instance can be created
+while true; do
+  if kubectl get crd applicationsets.argoproj.io &> /dev/null; then
+    break
+  else
+    sleep .5
+  fi
+done
 
 # rollout!
 oc apply -f wind-turbine-app.yaml
