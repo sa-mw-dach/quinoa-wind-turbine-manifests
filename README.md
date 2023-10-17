@@ -15,6 +15,8 @@ For easy install there is a shell script which does all kinds of installations t
 3. `0-quay-secret.yaml`: fill credentials for quay from Robot Accounts -> Create Robot Account -> Kubernetes Secret
 4. run `1-install.sh`
 
+**INFO: Install script is work-in-progress. Not all resources, that are used in some steps, are created fast enough. If it doesn't work, just run it multiple times.**
+
 ## Webhooks
 
 1. Get routes from your stage and dev deployments
