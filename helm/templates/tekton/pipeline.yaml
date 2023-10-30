@@ -55,6 +55,7 @@ spec:
     - name: GOALS
       value:
       - package
+      - -Pnative
     - name: PROXY_PROTOCOL
       value: http
     - name: CONTEXT_DIR
