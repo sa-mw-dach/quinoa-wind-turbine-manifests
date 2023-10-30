@@ -55,7 +55,10 @@ spec:
     - name: GOALS
       value:
       - package
+      - '-Pnative'
       - '-Dquarkus.native.container-build=true'
+      - '-Dquarkus.native.container-runtime=podman'
+      - '-Dquarkus.native.builder-image=registry.access.redhat.com/quarkus/mandrel-23-rhel8:23.0'
     - name: PROXY_PROTOCOL
       value: http
     - name: CONTEXT_DIR
