@@ -55,7 +55,7 @@ spec:
     - name: GOALS
       value:
       - package
-      - -Pnative
+      - '-Dquarkus.native.container-build=true'
     - name: PROXY_PROTOCOL
       value: http
     - name: CONTEXT_DIR
