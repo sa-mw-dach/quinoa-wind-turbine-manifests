@@ -55,9 +55,6 @@ spec:
     - name: GOALS
       value:
       - package
-      - '-Pnative'
-      - '-Dquarkus.native.container-build=true'
-      - '-Dquarkus.native.builder-image=graalvm'
     - name: PROXY_PROTOCOL
       value: http
     - name: CONTEXT_DIR
@@ -81,7 +78,7 @@ spec:
     - name: STORAGE_DRIVER
       value: vfs
     - name: DOCKERFILE
-      value: ./src/main/docker/Dockerfile.native
+      value: {{ coalesce .Values.pathToContainerfileInApplicationRepo './src/main/docker/Dockerfile.jvm' }}
     - name: CONTEXT
       value: .
     - name: TLSVERIFY
@@ -130,9 +127,9 @@ spec:
 
             export CURRENT_IMAGE=$(oc get dc quinoa-wind-turbine -o jsonpath='{.spec.template.spec.containers[0].image}{"\n"}')
             export CURRENT_DIGEST=$(echo $CURRENT_IMAGE | cut -d "@" -f2-)
-            
+
             SECONDS=0;
-            while sleep 1 && ((SECONDS <= 300)); do 
+            while sleep 1 && ((SECONDS <= 300)); do
               export CURRENT_IMAGE=$(oc get dc quinoa-wind-turbine -o jsonpath='{.spec.template.spec.containers[0].image}{"\n"}')
               export CURRENT_DIGEST=$(echo $CURRENT_IMAGE | cut -d "@" -f2-)
               if [ "$(tasks.buildah.results.IMAGE_DIGEST)" = "$CURRENT_DIGEST" ]
