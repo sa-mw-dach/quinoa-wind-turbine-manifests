@@ -78,7 +78,7 @@ spec:
     - name: STORAGE_DRIVER
       value: vfs
     - name: DOCKERFILE
-      value: {{ coalesce .Values.pathToContainerfileInApplicationRepo './src/main/docker/Dockerfile.jvm' }}
+      value: {{ coalesce .Values.pathToContainerfileInApplicationRepo "./src/main/docker/Dockerfile.jvm" }}
     - name: CONTEXT
       value: .
     - name: TLSVERIFY

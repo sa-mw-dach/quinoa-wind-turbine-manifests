@@ -2,7 +2,7 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   annotations:
-    alpha.image.policy.openshift.io/resolve-names: '*'
+    alpha.image.policy.openshift.io/resolve-names: "*"
     app.openshift.io/route-disabled: "false"
     app.openshift.io/vcs-uri: {{ coalesce .Values.applicationGitUrl "https://github.com/gmodzelewski/quinoa-wind-turbine.git" }}
     secret.reloader.stakater.com/reload: "infinispan-generated-secret,quinoa-wind-turbine"
@@ -44,58 +44,58 @@ spec:
       labels:
         app: quinoa-wind-turbine
       annotations:
-        sidecar.istio.io/inject: 'true'
+        sidecar.istio.io/inject: "true"
     spec:
       containers:
-      - env:
-        - name: QUARKUS_PROFILE
-          value: openshift-cluster
-        - name: INFINISPAN_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              key: password
-              name: infinispan-generated-secret
-        - name: QUARKUS_SECURITY_USERS_EMBEDDED_PLAIN_TEXT
-          valueFrom:
-            secretKeyRef:
-              key: plain-text-password-enabled
-              name: quinoa-wind-turbine
-        - name: QUARKUS_SECURITY_USERS_EMBEDDED_USERS_DEVELOPER
-          valueFrom:
-            secretKeyRef:
-              key: developer-user-password
-              name: quinoa-wind-turbine
-        image: {{ include "app.image" . }}
-        imagePullPolicy: IfNotPresent
-        name: quinoa-wind-turbine
-        ports:
-        - containerPort: 8080
-          protocol: TCP
-        - containerPort: 8443
-          protocol: TCP
-        resources: {}
-        readinessProbe:
-          httpGet:
-            scheme: HTTP
-            path: /q/health/ready
-            port: 8080
-          initialDelaySeconds: 10
-          periodSeconds: 5
-          failureThreshold: 3
-          successThreshold: 1	
-          timeoutSeconds: 1
-        livenessProbe:
-          httpGet:
-            scheme: HTTP
-            path: /q/health/live
-            port: 8080
-          initialDelaySeconds: 10
-          periodSeconds: 5
-          failureThreshold: 3
-          successThreshold: 1	
-          timeoutSeconds: 1
-        terminationMessagePath: /dev/termination-log
-        terminationMessagePolicy: File
+        - env:
+            - name: QUARKUS_PROFILE
+              value: openshift-cluster
+            - name: INFINISPAN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: infinispan-generated-secret
+            - name: QUARKUS_SECURITY_USERS_EMBEDDED_PLAIN_TEXT
+              valueFrom:
+                secretKeyRef:
+                  key: plain-text-password-enabled
+                  name: quinoa-wind-turbine
+            - name: QUARKUS_SECURITY_USERS_EMBEDDED_USERS_DEVELOPER
+              valueFrom:
+                secretKeyRef:
+                  key: developer-user-password
+                  name: quinoa-wind-turbine
+          image: {{ include "app.image" . }}
+          imagePullPolicy: IfNotPresent
+          name: quinoa-wind-turbine
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 8443
+              protocol: TCP
+          resources: {}
+          readinessProbe:
+            httpGet:
+              scheme: HTTP
+              path: /q/health/ready
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              scheme: HTTP
+              path: /q/health/live
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
