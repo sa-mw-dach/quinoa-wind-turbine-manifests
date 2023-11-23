@@ -3,6 +3,6 @@
   "url": "https://kubernetes.default.svc",
   "namespace": "gitops-demo-dev",
   "imageTag": "latest",
-  "imageDigest": "sha256:8ef4324d7e13f9b2142c879ae1e3d9556502c1bd202f38a2d2629a154d6fc08b",
+  "imageDigest": "sha256:4ce1ad292de02b8b2619b101fe36ae8a0f00feb83ce152fb31fef52efafbfc04",
   "followChangesForBranch": "main"
 }
