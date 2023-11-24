@@ -15,5 +15,5 @@ infinispan:
     initContainer: registry.access.redhat.com/ubi8-micro
   deploy:
     expose:
-      type: Route
+      type: LoadBalancer
     nameOverride: infinispan # install of dependency in a local way (because argocd only uses helm template) needs this
