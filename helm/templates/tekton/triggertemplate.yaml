@@ -32,9 +32,21 @@ spec:
           name: wind-turbine-pipeline
         workspaces:
         - name: source
-          persistentVolumeClaim:
-            claimName: app-source
+          volumeClaimTemplate:
+            spec:
+              accessModes:
+              - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 5Gi
+              volumeMode: Filesystem
         - name: maven-settings
-          persistentVolumeClaim:
-            claimName: build-cache-pvc
+          volumeClaimTemplate:
+            spec:
+              accessModes:
+              - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 1Gi
+              volumeMode: Filesystem            
 {{- end }}

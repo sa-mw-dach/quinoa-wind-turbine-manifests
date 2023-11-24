@@ -24,8 +24,22 @@ spec:
   workspaces:
   - name: source
     persistentVolumeClaim:
-      claimName: app-source
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+          storageClassName: managed-nfs-storage
+          volumeMode: Filesystem
   - name: maven-settings
-    persistentVolumeClaim:
-      claimName: build-cache-pvc
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+        volumeMode: Filesystem
 {{- end }}
