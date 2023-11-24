@@ -14,4 +14,6 @@ infinispan:
     server: quay.io/infinispan/server:latest
     initContainer: registry.access.redhat.com/ubi8-micro
   deploy:
+    expose:
+      type: Route
     nameOverride: infinispan # install of dependency in a local way (because argocd only uses helm template) needs this
