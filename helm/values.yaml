@@ -10,5 +10,8 @@ stage: dev # must be the name of the stage folder with the config.json
 disableSecretsDeployment: false
 
 infinispan:
+  images:
+    server: quay.io/infinispan/server:latest
+    initContainer: registry.access.redhat.com/ubi8-micro
   deploy:
     nameOverride: infinispan # install of dependency in a local way (because argocd only uses helm template) needs this
