@@ -8,6 +8,8 @@ metadata:
   labels:
     app.kubernetes.io/version: "0.2"
     operator.tekton.dev/provider-type: community
+    app.kubernetes.io/component: tekton
+    app.kubernetes.io/part-of: wind-turbine
   name: git-update-deployment
 spec:
   description: This Task can be used to update image digest in a Git repo.

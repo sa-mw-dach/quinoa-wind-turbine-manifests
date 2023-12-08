@@ -3,6 +3,9 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: wind-turbine-pipeline
+  labels:
+    app.kubernetes.io/component: tekton
+    app.kubernetes.io/part-of: wind-turbine
 spec:
   params:
   - name: GIT_REVISION

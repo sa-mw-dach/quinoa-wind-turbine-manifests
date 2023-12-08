@@ -3,12 +3,15 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
   name: wind-turbine
+  labels:
+    app.kubernetes.io/component: tekton
+    app.kubernetes.io/part-of: wind-turbine
 spec:
   params:
     - name: content-type
       value: $(header.Content-Type)
     - name: git-commit-message
-      value: $(body.head_commit.message)    
+      value: $(body.head_commit.message)
     - name: git-repo-name
       value: $(body.repository.name)
     - name: git-repo-url

@@ -10,6 +10,8 @@ metadata:
   name: maven-cached
   labels:
     app.kubernetes.io/version: '0.3'
+    app.kubernetes.io/component: tekton
+    app.kubernetes.io/part-of: wind-turbine
 spec:
   description: This Task can be used to run a Maven build.
   params:

@@ -3,6 +3,9 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: wind-turbine
+  labels:
+    app.kubernetes.io/component: tekton
+    app.kubernetes.io/part-of: wind-turbine
 spec:
   serviceAccountName: pipeline
   triggers:

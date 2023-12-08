@@ -6,21 +6,21 @@ metadata:
     argocd.argoproj.io/sync-wave: "-1"
   labels:
     app: quinoa-wind-turbine
-    app.kubernetes.io/component: quinoa-wind-turbine
     app.kubernetes.io/name: quinoa-wind-turbine
+    app.kubernetes.io/component: application
     app.kubernetes.io/part-of: wind-turbine
   name: quinoa-wind-turbine
 spec:
   lookupPolicy:
     local: false
   tags:
-  - annotations:
-      openshift.io/imported-from: quay.io/modzelewski/quinoa-wind-turbine:{{ .Values.imageTag | default .Chart.AppVersion }}
-    from:
-      kind: DockerImage
-      name: quay.io/modzelewski/quinoa-wind-turbine:{{ .Values.imageTag | default .Chart.AppVersion }}
-    importPolicy:
-      importMode: Legacy
-    name: {{ .Values.imageTag | default .Chart.AppVersion }}
-    referencePolicy:
-      type: Source
+    - annotations:
+        openshift.io/imported-from: quay.io/modzelewski/quinoa-wind-turbine:{{ .Values.imageTag | default .Chart.AppVersion }}
+      from:
+        kind: DockerImage
+        name: quay.io/modzelewski/quinoa-wind-turbine:{{ .Values.imageTag | default .Chart.AppVersion }}
+      importPolicy:
+        importMode: Legacy
+      name: {{ .Values.imageTag | default .Chart.AppVersion }}
+      referencePolicy:
+        type: Source

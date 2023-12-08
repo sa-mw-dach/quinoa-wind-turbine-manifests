@@ -3,11 +3,14 @@ kind: RoleBinding
 metadata:
   name: view-reloader-sa-for-{{ .Release.Namespace }}
   namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/component: application
+    app.kubernetes.io/part-of: wind-turbine
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: view
 subjects:
-- kind: ServiceAccount
-  name: reloader-reloader
-  namespace: reloader
+  - kind: ServiceAccount
+    name: reloader-reloader
+    namespace: reloader

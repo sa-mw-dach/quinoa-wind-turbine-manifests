@@ -5,6 +5,8 @@ metadata:
   name: {{ include "app.fullname" . }}-run-{{ .Release.Revision }}
   labels:
     tekton.dev/pipeline: wind-turbine-pipeline
+    app.kubernetes.io/component: tekton
+    app.kubernetes.io/part-of: wind-turbine
 spec:
   params:
     - name: IMAGE_TAG

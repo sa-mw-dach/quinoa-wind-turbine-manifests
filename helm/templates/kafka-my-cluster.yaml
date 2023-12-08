@@ -2,6 +2,9 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
   name: my-cluster
+  labels:
+    app.kubernetes.io/component: kafka
+    app.kubernetes.io/part-of: wind-turbine
 spec:
   kafka:
     config:
@@ -10,7 +13,7 @@ spec:
       transaction.state.log.min.isr: 2
       default.replication.factor: 3
       min.insync.replicas: 2
-      inter.broker.protocol.version: '3.3'
+      inter.broker.protocol.version: "3.3"
     storage:
       type: ephemeral
     listeners:

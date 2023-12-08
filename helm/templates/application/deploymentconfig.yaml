@@ -8,9 +8,9 @@ metadata:
     secret.reloader.stakater.com/reload: "infinispan-generated-secret,quinoa-wind-turbine"
   labels:
     app: quinoa-wind-turbine
-    app.kubernetes.io/component: quinoa-wind-turbine
     app.kubernetes.io/instance: quinoa-wind-turbine
     app.kubernetes.io/name: quinoa-wind-turbine
+    app.kubernetes.io/component: application
     app.kubernetes.io/part-of: wind-turbine
     app.openshift.io/runtime: quarkus
   name: quinoa-wind-turbine
