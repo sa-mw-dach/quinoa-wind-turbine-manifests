@@ -20,6 +20,10 @@ The configuration (=manifests) repository is located in https://github.com/gmodz
 3. `0-quay-secret.yaml`: fill credentials for quay from Robot Accounts -> Create Robot Account -> Kubernetes Secret
 4. copy image to your quay repo (```skopeo copy docker://quay.io/modzelewski/quinoa-wind-turbine:latest docker://quay.io/<yourname>/quinoa-wind-turbine```)
 5. run `1-install.sh`
+6. wait until everything is deployed
+7. start playing
+
+The dashboard is available under the `.../dashboard` route, username `developer`, password is `password` (can be changed in `/helm/templates/env/gitops-demo-<stage>/secret.yaml`).
 
 **INFO: Install script is work-in-progress. Not all resources, that are used in some steps, are created fast enough. If it doesn't work, just run it multiple times.**
 
