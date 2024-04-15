@@ -95,6 +95,97 @@ EOF
   oc wait --for=condition=initialized --timeout=60s pods -l name=amq-streams-cluster-operator -n openshift-operators
 fi
 
+# --- Camel K -------------------------------------------------------
+CAMELK_INSTALLED=$(oc get csv -n openshift-operators | grep red-hat-camel-k-operator)
+if [[ $CAMELK_INSTALLED == *"Succeeded"* ]]; then
+  echo "✅ Red Hat Camel K Operator"
+else
+  echo "Installing Red Hat Camel K ..."
+
+  read -r -d '' YAML_CONTENT <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+    operators.coreos.com/red-hat-camel-k.openshift-operators: ""
+  name: red-hat-camel-k
+  namespace: openshift-operators
+spec:
+  channel: 1.10.x
+  installPlanApproval: Automatic
+  name: red-hat-camel-k
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: red-hat-camel-k-operator.v1.10.6
+EOF
+  echo "$YAML_CONTENT" | oc apply -f -
+  oc wait --for=condition=initialized --timeout=60s pods -l name=camel-k-operator -n openshift-operators
+fi
+
+# --- Dev Spaces -------------------------------------------------------
+DEVSPACES_INSTALLED=$(oc get csv -n openshift-operators | grep red-hat-camel-k-operator)
+if [[ $DEVSPACES_INSTALLED == *"Succeeded"* ]]; then
+  echo "✅ OpenShift Dev Spaces Operator"
+else
+  echo "Installing OpenShift Dev Spaces ..."
+
+  read -r -d '' YAML_CONTENT <<EOF
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+    olm.managed: "true"
+    operators.coreos.com/devworkspace-operator.openshift-operators: ""
+  name: devworkspace-operator-fast-redhat-operators-openshift-marketplace
+  namespace: openshift-operators
+spec:
+  channel: fast
+  installPlanApproval: Automatic
+  name: devworkspace-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: devworkspace-operator.v0.26.0
+EOF
+  echo "$YAML_CONTENT" | oc apply -f -
+  oc wait --for=condition=initialized --timeout=60s pods -l app=devspaces-operator -n openshift-operators
+
+#   read -r -d '' YAML_CONTENT <<EOF
+# apiVersion: org.eclipse.che/v2
+# kind: CheCluster
+# metadata:
+#   annotations:
+#     che.eclipse.org/checluster-defaults-cleanup: '{"containers.resources":"true","spec.components.dashboard.headerMessage":"true","spec.components.pluginRegistry.openVSXURL":"true","spec.devEnvironments.defaultComponents":"true","spec.devEnvironments.defaultEditor":"true","spec.devEnvironments.disableContainerBuildCapabilities":"true"}'
+#   name: devspaces
+#   namespace: openshift-operators
+# spec:
+#   components:
+#     cheServer:
+#       debug: false
+#       logLevel: INFO
+#     dashboard:
+#       logLevel: ERROR
+#     imagePuller:
+#       enable: false
+#     metrics:
+#       enable: true
+#   devEnvironments:
+#     containerBuildConfiguration:
+#       openShiftSecurityContextConstraint: container-build
+#     defaultNamespace:
+#       autoProvision: true
+#       template: <username>-devspaces
+#     maxNumberOfRunningWorkspacesPerUser: 3
+#     maxNumberOfWorkspacesPerUser: 5
+#     secondsOfInactivityBeforeIdling: 1800
+#     secondsOfRunBeforeIdling: -1
+#     startTimeoutSeconds: 300
+#     storage:
+#       pvcStrategy: per-user
+#   networking: {}
+# fi
+# EOF
+#   echo "$YAML_CONTENT" | oc apply -f -
+
 # --- Bitnami Sealed Secrets -------------------------------------------------------
 SEALEDSECRETS_INSTALLED=$(oc get pods -n kube-system -l app.kubernetes.io/name=sealed-secrets | grep sealed-secrets)
 
