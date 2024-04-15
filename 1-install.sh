@@ -12,13 +12,17 @@ else
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: openshift-pipelines-operator
+  labels:
+    operators.coreos.com/openshift-pipelines-operator-rh.openshift-operators: ""
+  name: openshift-pipelines-operator-rh
   namespace: openshift-operators
 spec:
   channel: latest
-  name: openshift-pipelines-operator-rh 
-  source: redhat-operators 
-  sourceNamespace: openshift-marketplace 
+  installPlanApproval: Automatic
+  name: openshift-pipelines-operator-rh
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: openshift-pipelines-operator-rh.v1.14.3
 EOF
   # Apply the inline YAML using 'oc apply'
   echo "$YAML_CONTENT" | oc apply -f -
@@ -27,25 +31,29 @@ EOF
 fi
 
 # --- OpenShift GitOps --------------------------------------------------------
-GITOPS_INSTALLED=$(oc get csv -n openshift-operators | grep openshift-gitops)
+GITOPS_INSTALLED=$(oc get csv -n openshift-gitops-operator | grep openshift-gitops)
 
 if [[ $GITOPS_INSTALLED == *"Succeeded"* ]]; then
   echo "✅ OpenShift GitOps"
 else
   echo "Installing OpenShift GitOps..."
-
+  echo "Creating namespace openshift-gitops-operator"
+  $(oc new-project openshift-gitops-operator)
   read -r -d '' YAML_CONTENT <<EOF
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
+  labels:
+    operators.coreos.com/openshift-gitops-operator.openshift-gitops-operator: ""
   name: openshift-gitops-operator
-  namespace: openshift-operators
+  namespace: openshift-gitops-operator
 spec:
-  channel: latest 
+  channel: latest
   installPlanApproval: Automatic
-  name: openshift-gitops-operator 
-  source: redhat-operators 
-  sourceNamespace: openshift-marketplace 
+  name: openshift-gitops-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: openshift-gitops-operator.v1.12.1
 EOF
 
   # Apply the inline YAML using 'oc apply'
@@ -55,6 +63,9 @@ EOF
   sleep 3
   $(oc adm policy add-cluster-role-to-user cluster-admin -z openshift-gitops-argocd-application-controller -n openshift-gitops)
   oc wait --for=condition=initialized --timeout=60s pods -l app.kubernetes.io/name=openshift-gitops-server -n openshift-gitops
+  
+  ## Add edge termination to gitops route
+  oc -n openshift-gitops patch argocd/openshift-gitops --type=merge -p='{"spec":{"server":{"insecure":true,"route":{"enabled":true,"tls":{"insecureEdgeTerminationPolicy":"Redirect","termination":"edge"}}}}}'
 fi
 
 # --- OpenShift Streams -------------------------------------------------------
@@ -78,7 +89,7 @@ spec:
   name: amq-streams
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: amqstreams.v2.4.0-0
+  startingCSV: amqstreams.v2.6.0-1
 EOF
   echo "$YAML_CONTENT" | oc apply -f -
   oc wait --for=condition=initialized --timeout=60s pods -l name=amq-streams-cluster-operator -n openshift-operators
