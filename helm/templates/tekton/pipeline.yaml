@@ -10,7 +10,7 @@ spec:
   params:
   - name: GIT_REVISION
     type: string
-  - default: {{ coalesce .Values.applicationGitUrl "https://github.com/gmodzelewski/quinoa-wind-turbine.git" }}
+  - default: {{ coalesce .Values.applicationGitUrl "https://github.com/sa-mw-dach/quinoa-wind-turbine.git" }}
     name: GIT_REPO
     type: string
   - default: "empty"
@@ -19,7 +19,7 @@ spec:
   - default: {{ coalesce .Values.imageTag "latest" }}
     name: IMAGE_TAG
     type: string
-  - default: {{ coalesce .Values.image "quay.io/modzelewski/quinoa-wind-turbine" }}
+  - default: {{ coalesce .Values.image "quay.io/sbergste/quinoa-wind-turbine" }}
     name: IMAGE_NAME
     type: string
   tasks:

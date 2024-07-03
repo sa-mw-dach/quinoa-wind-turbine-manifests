@@ -1,8 +1,8 @@
-manifestsGitUrl: "https://github.com/gmodzelewski/quinoa-wind-turbine-manifests"
+manifestsGitUrl: "https://github.com/sa-mw-dach/quinoa-wind-turbine-manifests"
 # manifestsGitBranch: main
-applicationGitUrl: "https://github.com/gmodzelewski/quinoa-wind-turbine.git"
+applicationGitUrl: "https://github.com/sa-mw-dach/quinoa-wind-turbine.git"
 # pathToContainerfileInApplicationRepo: # default: ./src/main/docker/Dockerfile.jvm WIP - add mvn goals accordingly
-image: "quay.io/modzelewski/quinoa-wind-turbine"
+image: "quay.io/sbergste/quinoa-wind-turbine"
 imageTag: latest # Overwrite this value in the applicationSet - wind-turbine-app.yaml
 # imageDigest: sha256@xxx # Overwrite this value in the applicationSet - wind-turbine-app.yaml
 # followChangesForBranch: # default: empty -> if set, tekton files get created

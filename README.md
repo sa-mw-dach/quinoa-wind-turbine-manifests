@@ -10,15 +10,15 @@ For easy install there is a shell script which does all kinds of installations t
 
 ## Fun fact
 
-The application code repository is located in https://github.com/gmodzelewski/quinoa-wind-turbine.
-The configuration (=manifests) repository is located in https://github.com/gmodzelewski/quinoa-wind-turbine-manifests.
+The application code repository is located in https://github.com/sa-mw-dach/quinoa-wind-turbine.
+The configuration (=manifests) repository is located in https://github.com/sa-mw-dach/quinoa-wind-turbine-manifests.
 
 ## Installation
 
 1. fork this repo
 2. `0-github-secret.yaml`: fill credentials for github from user settings -> Developer settings -> Personal access tokens -> Fine-grained tokens
 3. `0-quay-secret.yaml`: fill credentials for quay from Robot Accounts -> Create Robot Account -> Kubernetes Secret
-4. copy image to your quay repo (```skopeo copy docker://quay.io/modzelewski/quinoa-wind-turbine:latest docker://quay.io/<yourname>/quinoa-wind-turbine```)
+4. copy image to your quay repo (```skopeo copy docker://quay.io/sbergste/quinoa-wind-turbine:latest docker://quay.io/<yourname>/quinoa-wind-turbine```)
 5. run `1-install.sh`
 6. wait until everything is deployed
 7. start playing

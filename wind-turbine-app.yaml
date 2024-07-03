@@ -6,7 +6,7 @@ metadata:
 spec:
   generators: 
   - git:
-      repoURL: "https://github.com/gmodzelewski/quinoa-wind-turbine-manifests"
+      repoURL: "https://github.com/sa-mw-dach/quinoa-wind-turbine-manifests"
       revision: main
       files:
       - path: "stages/**/config.json"
@@ -33,18 +33,18 @@ spec:
     spec:
       project: default 
       source:
-        repoURL: "https://github.com/gmodzelewski/quinoa-wind-turbine-manifests"
+        repoURL: "https://github.com/sa-mw-dach/quinoa-wind-turbine-manifests"
         path: helm
         helm:
           # valueFiles: 
           # - values.{{cluster}}.yaml
           parameters:
           - name: repoUrl
-            value: 'https://github.com/gmodzelewski/quinoa-wind-turbine-manifests'
+            value: 'https://github.com/sa-mw-dach/quinoa-wind-turbine-manifests'
           - name: applicationGitUrl
-            value: 'https://github.com/gmodzelewski/quinoa-wind-turbine.git'
+            value: 'https://github.com/sa-mw-dach/quinoa-wind-turbine.git'
           - name: image
-            value: 'quay.io/modzelewski/quinoa-wind-turbine'
+            value: 'quay.io/sbergste/quinoa-wind-turbine'
           - name: imageTag
             value: '{{imageTag}}'
           - name: imageDigest

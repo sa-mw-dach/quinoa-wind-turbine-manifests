@@ -9,7 +9,7 @@ if [[ $EVENT_LISTENER_RUNNING_DEV == *"condition met"* ]] && [[ $EVENT_LISTENER_
   EVENT_LISTENER_FOR_DEV=$(oc get route el-wind-turbine -o jsonpath='{.spec.host}{"\n"}' -n gitops-demo-dev)
   EVENT_LISTENER_FOR_STAGE=$(oc get route el-wind-turbine -o jsonpath='{.spec.host}{"\n"}' -n gitops-demo-stage)
   echo "--------------------------------------------------------------------------------"
-  echo "➡️  Go to your forked github application code project, for example https://github.com/gmodzelewski/quinoa-wind-turbine"
+  echo "➡️  Go to your forked github application code project, for example https://github.com/sa-mw-dach/quinoa-wind-turbine"
   echo "➡️  Navigate to Settings -> Webhooks and add a Webhook for each entry"
   echo "➡️  Select as a content type application/json"
   echo "➡️  Use these Payload URLs:"
